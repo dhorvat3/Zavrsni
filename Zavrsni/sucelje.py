@@ -2,7 +2,7 @@
 
 class sucelje(object):
     """Definiranje korisniskog su?elja"""
-    def __init__(self, visina, sirina, grid, POV, novci):
+    def __init__(self, visina, sirina, grid, POV, novci, ikonaHover, ikonaLvl1):
         self.visina = visina
         self.sirina = sirina
         self.brojRedova = len(grid)
@@ -14,6 +14,9 @@ class sucelje(object):
         self.toranj1Rect = None
         self.toranj2Rect = None
         self.toranj3Rect = None
+        self.menuHover = ikonaHover
+        self.menuLvl1 = ikonaLvl1
+        self.Lvl1Rect = self.menuLvl1.get_rect()
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
@@ -60,6 +63,18 @@ class sucelje(object):
         if odabrano == 'Toranj3':
             toranjRect = self.toranj3Rect
         self.POVRSINA.blit(slika, toranjRect)
+    def crtajGlavniMenu(self):
+        self.Lvl1Rect.x = 100
+        self.Lvl1Rect.y = 50
+        self.POVRSINA.blit(self.menuLvl1, self.Lvl1Rect)
+    def hoverGlavniMenu(self, x, y):
+        if self.Lvl1Rect.collidepoint(x, y):
+            self.POVRSINA.blit(self.menuHover, self.Lvl1Rect)
+    def kliknutoGlavniMenu(self, x, y):
+        if self.Lvl1Rect.collidepoint(x, y):
+            return 'Lvl1'
+        else:
+            return None
     def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3):
         #obrub
         slikaRect = slikaObrub.get_rect()
