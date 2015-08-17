@@ -2,7 +2,7 @@
 
 class sucelje(object):
     """Definiranje korisniskog su?elja"""
-    def __init__(self, visina, sirina, grid, POV, novci, ikonaHover, ikonaLvl1):
+    def __init__(self, visina, sirina, grid, POV, novci, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3):
         self.visina = visina
         self.sirina = sirina
         self.brojRedova = len(grid)
@@ -17,6 +17,10 @@ class sucelje(object):
         self.menuHover = ikonaHover
         self.menuLvl1 = ikonaLvl1
         self.Lvl1Rect = self.menuLvl1.get_rect()
+        self.menuLvl2 = ikonaLvl2
+        self.Lvl2Rect = self.menuLvl2.get_rect()
+        self.menuLvl3 = ikonaLvl3
+        self.Lvl3Rect = self.menuLvl3.get_rect()
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
@@ -66,10 +70,20 @@ class sucelje(object):
     def crtajGlavniMenu(self):
         self.Lvl1Rect.x = 100
         self.Lvl1Rect.y = 50
+        self.Lvl2Rect.x = 100
+        self.Lvl2Rect.y = 50 + 70 + 20
+        self.Lvl3Rect.x = 100
+        self.Lvl3Rect.y = 50 + 70 + 20 + 70 + 20
         self.POVRSINA.blit(self.menuLvl1, self.Lvl1Rect)
+        self.POVRSINA.blit(self.menuLvl2, self.Lvl2Rect)
+        self.POVRSINA.blit(self.menuLvl3, self.Lvl3Rect)
     def hoverGlavniMenu(self, x, y):
         if self.Lvl1Rect.collidepoint(x, y):
             self.POVRSINA.blit(self.menuHover, self.Lvl1Rect)
+        elif self.Lvl2Rect.collidepoint(x, y):
+            self.POVRSINA.blit(self.menuHover, self.Lvl2Rect)
+        elif self.Lvl3Rect.collidepoint(x, y):
+            self.POVRSINA.blit(self.menuHover, self.Lvl3Rect)
     def kliknutoGlavniMenu(self, x, y):
         if self.Lvl1Rect.collidepoint(x, y):
             return 'Lvl1'

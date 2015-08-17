@@ -19,6 +19,8 @@ toranj3ikona = pygame.image.load('grafika/toranj3_ikona.png')
 slikaHover = pygame.image.load('grafika/hover.png')
 slikaOdabrano = pygame.image.load('grafika/odabrano.png')
 menuLvl1 = pygame.image.load('grafika/menuLvl1.png')
+menuLvl2 = pygame.image.load('grafika/menuLvl2.png')
+menuLvl3 = pygame.image.load('grafika/menuLvl3.png')
 menuHover = pygame.image.load('grafika/menuHover.png')
 
 FPS = 30
@@ -67,11 +69,7 @@ def main ():
     FPSCLOCK = pygame.time.Clock()
     POVRSINA = pygame.display.set_mode((UkupnaVisina, SirinaProzora), 0, 32)
 
-    ##lvl = Mapa(grid, VisinaProzora, SirinaProzora)
-    ##listaNeprijatelj = [neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, randrange(10) + 1, R, neprijateljPlaceholder, 15) for i in range (brojNeprijatelja)]
-    ##tornjevi = []
-    ##GlZgrada = zgrada(POVRSINA, glavnaZgrada, 15, kraj, VisinaProzora, SirinaProzora, grid)
-    UI = sucelje(VisinaProzora, SirinaProzora, grid, POVRSINA, startGold, menuHover, menuLvl1)
+    UI = sucelje(VisinaProzora, SirinaProzora, grid, POVRSINA, startGold, menuHover, menuLvl1, menuLvl2, menuLvl3)
     mousex = 0
     mousey = 0
     pygame.display.set_caption('Saki dan dolazu')
@@ -116,7 +114,7 @@ def main ():
                 lijevo, gore = UI.poljeNaPixelu(mousex, mousey)
                 if lijevo is None and gore is None:
                     odabraniToranj = UI.odabraniToranj(mousex, mousey, slikaOdabrano)
-                elif not grid[gore][lijevo] == Z:
+                elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
                     if odabraniToranj is not None:
                         grid[gore][lijevo] = T
                         if odabraniToranj == toranj1:
