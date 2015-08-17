@@ -20,6 +20,8 @@ class toranj(object):
         self.domet = domet
         self.damage = damage
         self.projektil = None
+        self.DometTornja = None
+        self.index = -1
 
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
@@ -34,26 +36,36 @@ class toranj(object):
         self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey) + 10
         self.ikonaRect.y = self.sirina/self.brojStupaca*(self.poljex) + 10
         self.POV.blit(self.ikona, self.ikonaRect)
-    def Ciljanje (self, neprijatelji, metakIkona):
-        listaNeprijatelja = neprijatelji
-        index = -1
-        status = 0
-        DometTornja = self.ikonaRect.copy()
-        DometTornja = DometTornja.inflate(self.domet, self.domet);
+        self.DometTornja = self.ikonaRect.copy()
+        self.DometTornja = self.DometTornja.inflate(self.domet, self.domet);
         #Crtanje kvadrata s alpha vrijednostima
-        s = pygame.Surface((DometTornja.right - DometTornja.left, DometTornja.bottom - DometTornja.top))  # the size of your rect
+        s = pygame.Surface((self.DometTornja.right - self.DometTornja.left, self.DometTornja.bottom - self.DometTornja.top))  # the size of your rect
         s.set_alpha(70)                # alpha level
         s.fill((84,48,15))           # this fills the entire surface
-        self.POV.blit(s, (DometTornja.left,DometTornja.top))    # (0,0) are the top-left coordinates
-        index = DometTornja.collidelist(listaNeprijatelja)
-        if index > -1 and self.projektil is None:
-            self.projektil = metak(3, "A", self.ikonaRect, self.grid, self.POV, metakIkona)
+        self.POV.blit(s, (self.DometTornja.left,self.DometTornja.top))    # (0,0) are the top-left coordinates
+    def Ciljanje (self, neprijatelji, metakIkona):
+        listaNeprijatelja = neprijatelji
+        #index = -1
+        status = 0
+        tmpIndex = self.DometTornja.collidelist(listaNeprijatelja)
+        if not self.index == tmpIndex:
+            self.projektil = None
+            self.index = tmpIndex
+            #self.index = self.DometTornja.collidelist(listaNeprijatelja)
+        if self.index > -1 and self.projektil is None:
+            self.projektil = metak(3, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona)
         if self.projektil is not None:
-            neprijatelj = listaNeprijatelja[index]
+            neprijatelj = listaNeprijatelja[self.index]
             status = self.projektil.Pomak(neprijatelj)
         if status == 1:
             print ("Status: ", status)
             self.projektil = None
-            return index, self.damage
+            ind = self.index
+            self.index = -1
+            return ind, self.damage
+        if status == -1:
+            self.index = -1
+            self.projektil = None
+            return -1, 0
         else:
             return -1, 0

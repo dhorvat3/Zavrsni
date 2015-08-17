@@ -3,7 +3,7 @@ from math import hypot
 
 class metak(object):
     """pf pf"""
-    def __init__(self, brzina, tip, toranj, grid, POV, ikona):
+    def __init__(self, brzina, tip, toranj, domet, POV, ikona):
         self.POV = POV
         self.brzina = brzina
         self.tip = tip
@@ -13,6 +13,7 @@ class metak(object):
         self.ikona = ikona
         self.ikonaRect = self.ikona.get_rect()
         self.POV.blit(ikona, self.ishodiste.center)
+        self.domet = domet
 
     def Pomak(self, meta):
         TockaBx = meta.centerx
@@ -31,6 +32,7 @@ class metak(object):
         self.POV.blit(self.ikona, (self.TockaAx, self.TockaAy))
         self.ikonaRect.centerx = self.TockaAx
         self.ikonaRect.centery = self.TockaAy
-
+        if not self.ikonaRect.colliderect(self.domet):
+            return -1
         if self.ikonaRect.colliderect(meta):
             return 1
