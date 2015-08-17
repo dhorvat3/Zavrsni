@@ -63,7 +63,7 @@ class toranj(object):
             ind = self.index
             self.index = -1
             return ind, self.damage
-        if status == -1:
+        elif status == -1:
             self.index = -1
             self.projektil = None
             return -1, 0

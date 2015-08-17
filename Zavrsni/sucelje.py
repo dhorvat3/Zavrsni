@@ -35,7 +35,7 @@ class sucelje(object):
         if poljex != None and poljey != None and self.mapa[poljey][poljex] != 'Z':
             lijevo, gore = self.lijevoGore(poljex, poljey)
             pygame.draw.rect(self.POVRSINA, (60,  60, 100), (lijevo, gore, self.visina/self.brojRedova, self.sirina/self.brojStupaca), 3)
-        elif x is not None and y is not None:
+        elif x is not None and y is not None and self.toranj1Rect is not None and self.toranj2Rect is not None and self.toranj3Rect is not None:
            if self.toranj1Rect.collidepoint(x, y):
                 self.POVRSINA.blit(hover, self.toranj1Rect)
            elif self.toranj2Rect.collidepoint(x, y):
