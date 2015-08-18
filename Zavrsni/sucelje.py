@@ -87,6 +87,10 @@ class sucelje(object):
     def kliknutoGlavniMenu(self, x, y):
         if self.Lvl1Rect.collidepoint(x, y):
             return 'Lvl1'
+        elif self.Lvl2Rect.collidepoint(x, y):
+            return 'Lvl2'
+        elif self.Lvl3Rect.collidepoint(x, y):
+            return 'Lvl3'
         else:
             return None
     def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3):
