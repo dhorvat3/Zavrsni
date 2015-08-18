@@ -2,15 +2,15 @@
 
 class sucelje(object):
     """Definiranje korisniskog su?elja"""
-    def __init__(self, visina, sirina, grid, POV, novci, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3):
+    def __init__(self, visina, sirina, POV, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3):
         self.visina = visina
         self.sirina = sirina
-        self.brojRedova = len(grid)
-        self.brojStupaca = len(grid[0])
-        self.mapa = grid
+        self.brojRedova = 0
+        self.brojStupaca = 0
+        self.mapa = None
         self.POVRSINA = POV
         self.font = pygame.font.SysFont("monospace", 15)
-        self.pare = novci
+        self.pare = 0
         self.toranj1Rect = None
         self.toranj2Rect = None
         self.toranj3Rect = None
@@ -119,3 +119,9 @@ class sucelje(object):
         self.POVRSINA.blit(lblHP, (640 + 30, 5))
         lblNovci = self.font.render(("Stanje: " + str(self.pare)), 1, (254, 158, 18))
         self.POVRSINA.blit(lblNovci, (640 + 30, 20))
+    def postaviMrezu(self, mreza):
+        self.mapa = mreza
+        self.brojRedova = len(self.mapa)
+        self.brojStupaca = len(self.mapa[0])
+    def postaviNovce(self, novci):
+        self.pare = novci

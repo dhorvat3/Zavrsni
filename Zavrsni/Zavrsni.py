@@ -7,6 +7,7 @@ from neprijatelj import neprijatelj
 from sucelje import sucelje
 from toranj import toranj
 from zgrada import zgrada
+from maestro import maestro
 from pygame.locals import QUIT, KEYUP, K_ESCAPE, MOUSEBUTTONUP, MOUSEMOTION
 
 metakIkona = pygame.image.load('grafika\metak.png')
@@ -43,23 +44,24 @@ modIgra = 'igra'
 #mod = modMenu
 
 #opis mape
-grid = [
-#0  1  2  3  4  5  6  7  8  9
-[S, S, S, S, S, S, S, S, S, S],#0
-[Z, Z, Z, S, S, S, S, S, S, S],#1
-[S, S, Z, S, S, S, S, S, S, S],#2
-[Z, Z, Z, S, S, S, S, S, S, S],#3
-[Z, S, S, S, Z, Z, Z, S, S, S],#4
-[Z, Z, S, S, Z, S, Z, S, S, S],#5
-[S, Z, Z, Z, Z, S, Z, Z, Z, S],#6
-[S, S, S, S, S, S, S, S, Z, S],#7
-[S, S, S, S, S, S, S, S, Z, S],#8
-[S, S, S, S, S, S, S, S, Z, S] #9
-]
-start = [2, 0]
-kraj = [9, 8]
-brojNeprijatelja = 4
-startGold = 100
+#grid = [
+##0  1  2  3  4  5  6  7  8  9
+#[S, S, S, S, S, S, S, S, S, S],#0
+#[Z, Z, Z, S, S, S, S, S, S, S],#1
+#[S, S, Z, S, S, S, S, S, S, S],#2
+#[Z, Z, Z, S, S, S, S, S, S, S],#3
+#[Z, S, S, S, Z, Z, Z, S, S, S],#4
+#[Z, Z, S, S, Z, S, Z, S, S, S],#5
+#[S, Z, Z, Z, Z, S, Z, Z, Z, S],#6
+#[S, S, S, S, S, S, S, S, Z, S],#7
+#[S, S, S, S, S, S, S, S, Z, S],#8
+#[S, S, S, S, S, S, S, S, Z, S] #9
+#]
+grid = []
+start = None#[2, 0]
+kraj = None#[9, 8]
+brojNeprijatelja = None#4
+startGold = None#100
 #kraj opisa mape
 
 def main ():
@@ -69,7 +71,8 @@ def main ():
     FPSCLOCK = pygame.time.Clock()
     POVRSINA = pygame.display.set_mode((UkupnaVisina, SirinaProzora), 0, 32)
 
-    UI = sucelje(VisinaProzora, SirinaProzora, grid, POVRSINA, startGold, menuHover, menuLvl1, menuLvl2, menuLvl3)
+    lvlSeed = maestro()
+    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3)
     mousex = 0
     mousey = 0
     pygame.display.set_caption('Saki dan dolazu')
@@ -77,6 +80,8 @@ def main ():
     odabraniLvl = None
     mod = modMenu
 
+
+    #UI.postaviMrezu(grid)
     while True:
         kliknuto = False
         for event in pygame.event.get():
@@ -91,8 +96,16 @@ def main ():
             #UI.crtajGlavniMenu()
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
-                if odabraniLvl == 'Lvl1':
+                if odabraniLvl is not None:
                     mod = modIgra
+                    lvlSeed.lvlLoad(odabraniLvl)
+                    grid = lvlSeed.grid()
+                    start = lvlSeed.start()
+                    kraj = lvlSeed.kraj()
+                    startGold = lvlSeed.startGold()
+                    brojNeprijatelja = lvlSeed.brNeprijatelja()
+                    UI.postaviMrezu(grid)
+                    UI.postaviNovce(startGold)
                     ##Tu bi trebalo maestro pozivi biti tipa if odabraniLvl is not None: grid = maestro.grid(odabraniLvl), start = maestro.start(odaraniLvl) itd.
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora)
                     listaNeprijatelj = [neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, randrange(10) + 1, R, neprijateljPlaceholder, 15) for i in range (brojNeprijatelja)]
@@ -118,15 +131,15 @@ def main ():
                     if odabraniToranj is not None:
                         grid[gore][lijevo] = T
                         if odabraniToranj == toranj1:
-                            if UI.vratiNovce() > 10:
+                            if UI.vratiNovce() >= 10:
                                 tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 5))
                                 UI.azurirajNovce(-10)
                         if odabraniToranj == toranj2:
-                            if UI.vratiNovce() > 20:
+                            if UI.vratiNovce() >= 20:
                                 tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 5))
                                 UI.azurirajNovce(-20)
                         if odabraniToranj == toranj3:
-                            if UI.vratiNovce() > 30:
+                            if UI.vratiNovce() >= 30:
                                 tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 10))
                                 UI.azurirajNovce(-30)
             if not kliknuto:
@@ -157,6 +170,10 @@ def main ():
             if len(listaNeprijatelj) < 1:
                 print ("Pobeda")
                 mod = modMenu
+                odabraniLvl = None
+                grid = []
+                lvlSeed.obrisiLvl()
+                UI.postaviNovce(0)
                 #main()
             UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona)
         pygame.display.update()
