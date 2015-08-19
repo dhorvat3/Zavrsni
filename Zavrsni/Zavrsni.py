@@ -11,7 +11,10 @@ from maestro import maestro
 from pygame.locals import QUIT, KEYUP, K_ESCAPE, MOUSEBUTTONUP, MOUSEMOTION
 
 metakIkona = pygame.image.load('grafika\metak.png')
-neprijateljPlaceholder = pygame.image.load('grafika\enemy.png')
+ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelj1.png')
+ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelj2.png')
+ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelj3.png')
+ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelj4.png')
 glavnaZgrada = pygame.image.load('grafika\zgrada.png')
 menuSlika = pygame.image.load('grafika\menu_obrub.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
@@ -79,7 +82,9 @@ def main ():
     odabraniToranj = None
     odabraniLvl = None
     mod = modMenu
-
+    signal = 0
+    pocetak = 1
+    listaNeprijatelj = []
 
     #UI.postaviMrezu(grid)
     while True:
@@ -104,18 +109,36 @@ def main ():
                     kraj = lvlSeed.kraj()
                     startGold = lvlSeed.startGold()
                     brojNeprijatelja = lvlSeed.brNeprijatelja()
+                    zgradaHP = lvlSeed.zgradaHP()
                     UI.postaviMrezu(grid)
                     UI.postaviNovce(startGold)
                     ##Tu bi trebalo maestro pozivi biti tipa if odabraniLvl is not None: grid = maestro.grid(odabraniLvl), start = maestro.start(odaraniLvl) itd.
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora)
-                    listaNeprijatelj = [neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, randrange(10) + 1, R, neprijateljPlaceholder, 15) for i in range (brojNeprijatelja)]
+
+
+
+                    #listaNeprijatelj = [neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, randrange(10) + 1, R, neprijateljPlaceholder, 15) for i in range (brojNeprijatelja)]
                     tornjevi = []
-                    GlZgrada = zgrada(POVRSINA, glavnaZgrada, 15, kraj, VisinaProzora, SirinaProzora, grid)
+                    GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
                     ##do ovđe
             if not kliknuto:
                 UI.hoverGlavniMenu(mousex, mousey)
             UI.crtajGlavniMenu()
         if mod == modIgra:
+            if lvlSeed.vrijeme():
+                tip, brzina, HP = lvlSeed.vratiNeprijatelj()
+                if tip is not None:
+                    if tip == 0:
+                        ikona = ikonaNeprijatelj1
+                    elif tip == 1:
+                        ikona = ikonaNeprijatelj2
+                    elif tip == 2:
+                        ikona = ikonaNeprijatelj3
+                    else:
+                        ikona = ikonaNeprijatelj4
+                    listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, HP))
+                else:
+                    pocetak = 0
             NeprijateljiRect = []
             GlZgrada.crtaj()
             for i in range (len(listaNeprijatelj)):
@@ -167,7 +190,8 @@ def main ():
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
-            if len(listaNeprijatelj) < 1:
+            if len(listaNeprijatelj) < 1 and not pocetak:
+                pocetak = 1
                 print ("Pobeda")
                 mod = modMenu
                 odabraniLvl = None
