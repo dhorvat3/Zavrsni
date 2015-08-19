@@ -62,7 +62,7 @@ def main ():
     UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3)
     mousex = 0
     mousey = 0
-    pygame.display.set_caption('Saki dan dolazu')
+    pygame.display.set_caption('Zavrsni')
     odabraniToranj = None
     odabraniLvl = None
     mod = modMenu
