@@ -28,4 +28,3 @@ class zgrada(object):
             return -1
     def vratiHP(self):
         return self.trenutniHP, self.maxHP
-

@@ -22,15 +22,12 @@ class toranj(object):
         self.projektil = None
         self.DometTornja = None
         self.index = -1
-
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
-
         lijevo = boxx * trecinax
         gore = boxy * trecinay
         return(lijevo, gore)
-
     def Crtaj (self):
         lijevo, gore = self.lijevoGore(self.poljex, self.poljey)
         self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey) + 10
@@ -45,13 +42,11 @@ class toranj(object):
         self.POV.blit(s, (self.DometTornja.left,self.DometTornja.top))    # (0,0) are the top-left coordinates
     def Ciljanje (self, neprijatelji, metakIkona):
         listaNeprijatelja = neprijatelji
-        #index = -1
         status = 0
         tmpIndex = self.DometTornja.collidelist(listaNeprijatelja)
         if not self.index == tmpIndex:
             self.projektil = None
             self.index = tmpIndex
-            #self.index = self.DometTornja.collidelist(listaNeprijatelja)
         if self.index > -1 and self.projektil is None:
             self.projektil = metak(3, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona)
         if self.projektil is not None:

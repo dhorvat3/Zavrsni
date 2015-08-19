@@ -44,28 +44,12 @@ toranj2 = 'Toranj2'
 toranj3 = 'Toranj3'
 modMenu = 'menu'
 modIgra = 'igra'
-#mod = modMenu
 
-#opis mape
-#grid = [
-##0  1  2  3  4  5  6  7  8  9
-#[S, S, S, S, S, S, S, S, S, S],#0
-#[Z, Z, Z, S, S, S, S, S, S, S],#1
-#[S, S, Z, S, S, S, S, S, S, S],#2
-#[Z, Z, Z, S, S, S, S, S, S, S],#3
-#[Z, S, S, S, Z, Z, Z, S, S, S],#4
-#[Z, Z, S, S, Z, S, Z, S, S, S],#5
-#[S, Z, Z, Z, Z, S, Z, Z, Z, S],#6
-#[S, S, S, S, S, S, S, S, Z, S],#7
-#[S, S, S, S, S, S, S, S, Z, S],#8
-#[S, S, S, S, S, S, S, S, Z, S] #9
-#]
 grid = []
-start = None#[2, 0]
-kraj = None#[9, 8]
-brojNeprijatelja = None#4
-startGold = None#100
-#kraj opisa mape
+start = None
+kraj = None
+brojNeprijatelja = None
+startGold = None
 
 def main ():
     global FPSCLOCK, POVRSINA;
@@ -85,8 +69,6 @@ def main ():
     signal = 0
     pocetak = 1
     listaNeprijatelj = []
-
-    #UI.postaviMrezu(grid)
     while True:
         kliknuto = False
         for event in pygame.event.get():
@@ -98,7 +80,6 @@ def main ():
                 mousex, mousey = event.pos
                 kliknuto = True
         if mod == modMenu:
-            #UI.crtajGlavniMenu()
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
@@ -112,15 +93,9 @@ def main ():
                     zgradaHP = lvlSeed.zgradaHP()
                     UI.postaviMrezu(grid)
                     UI.postaviNovce(startGold)
-                    ##Tu bi trebalo maestro pozivi biti tipa if odabraniLvl is not None: grid = maestro.grid(odabraniLvl), start = maestro.start(odaraniLvl) itd.
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora)
-
-
-
-                    #listaNeprijatelj = [neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, randrange(10) + 1, R, neprijateljPlaceholder, 15) for i in range (brojNeprijatelja)]
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
-                    ##do ovđe
             if not kliknuto:
                 UI.hoverGlavniMenu(mousex, mousey)
             UI.crtajGlavniMenu()
@@ -176,7 +151,6 @@ def main ():
             for i in range (len(tornjevi)):
                 tornjevi[i - 1].Crtaj()
                 index, damage = tornjevi[i - 1].Ciljanje(NeprijateljiRect, metakIkona)
-                #print (index)
                 if index > -1:
                     print (index)
                     listaNeprijatelj[index].damage(damage)
@@ -198,7 +172,6 @@ def main ():
                 grid = []
                 lvlSeed.obrisiLvl()
                 UI.postaviNovce(0)
-                #main()
             UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona)
         pygame.display.update()
         POVRSINA.fill((0,15,0))

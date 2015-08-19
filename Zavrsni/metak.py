@@ -28,7 +28,6 @@ class metak(object):
             self.TockaAy -= self.brzina
         elif TockaBy > self.TockaAy:
             self.TockaAy += self.brzina
-
         self.POV.blit(self.ikona, (self.TockaAx, self.TockaAy))
         self.ikonaRect.centerx = self.TockaAx
         self.ikonaRect.centery = self.TockaAy

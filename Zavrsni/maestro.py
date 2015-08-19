@@ -46,8 +46,6 @@ class maestro(object):
             return None, None, None
         if self.seed[self.index] == 0:
             self.index = self.index + 1
-                #if self.index > 3:
-                #   return None, None, None
         if self.index > 3:
             return None, None, None
         self.seed[self.index] = self.seed[self.index] - 1

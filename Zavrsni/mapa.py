@@ -14,7 +14,6 @@ class Mapa(object):
         '''Crta mapu'''
         dimX = int(self.ekranVisina/self.brojRedova)
         dimY = int(self.ekranSirina/self.brojStupaca)
-
         for i in range(self.brojRedova):
             for j in range(self.brojStupaca):
                 if self.grid[i][j] == 'S' or self.grid[i][j] == 'D' or self.grid[i][j] == 'L' or self.grid[i][j] == 'T':
