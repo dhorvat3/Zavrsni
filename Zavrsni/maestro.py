@@ -57,3 +57,8 @@ class maestro(object):
             return 3, 2, 50
         elif self.index == 3:
             return 4, 1, 80
+    def reset(self):
+        self.Lvl = []
+        self.seed = None
+        self.index = 0
+        self.pocetno = pygame.time.get_ticks()

@@ -164,7 +164,7 @@ def main ():
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
-            if len(listaNeprijatelj) < 1 and not pocetak:
+            if len(listaNeprijatelj) < 1 and pocetak == 0:
                 pocetak = 1
                 print ("Pobeda")
                 mod = modMenu
@@ -172,6 +172,7 @@ def main ():
                 grid = []
                 lvlSeed.obrisiLvl()
                 UI.postaviNovce(0)
+                lvlSeed.reset()
             UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona)
         pygame.display.update()
         POVRSINA.fill((0,15,0))
