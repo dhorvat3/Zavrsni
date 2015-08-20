@@ -1,7 +1,7 @@
 ﻿#Glavna klasa
 import pygame
 import sys
-from random import randrange
+#from random import randrange
 from mapa import Mapa
 from neprijatelj import neprijatelj
 from sucelje import sucelje
@@ -160,7 +160,7 @@ def main ():
             for i in range (len(tornjevi)):
                 tornjevi[i - 1].Crtaj()
                 index, damage = tornjevi[i - 1].Ciljanje(NeprijateljiRect, metakIkona)
-                if index > -1:
+                if index > -1 and listaNeprijatelj:
                     print (index)
                     listaNeprijatelj[index].damage(damage)
                     if listaNeprijatelj[index].vratiHP() < 1:
