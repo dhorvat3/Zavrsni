@@ -36,7 +36,7 @@ class maestro(object):
         self.Lvl = []
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
-        if trenutno - self.pocetno >= self.razmak:
+        if trenutno - self.pocetno >= (self.razmak * (self.index + 1)):
             self.pocetno = trenutno
             return 1
         else:

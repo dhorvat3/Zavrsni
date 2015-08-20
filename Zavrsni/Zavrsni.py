@@ -10,22 +10,25 @@ from zgrada import zgrada
 from maestro import maestro
 from pygame.locals import QUIT, KEYUP, K_ESCAPE, MOUSEBUTTONUP, MOUSEMOTION
 
+#objekti igre
 metakIkona = pygame.image.load('grafika\metak.png')
 ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelj1.png')
 ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelj2.png')
 ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelj3.png')
 ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelj4.png')
 glavnaZgrada = pygame.image.load('grafika\zgrada.png')
-menuSlika = pygame.image.load('grafika\menu_obrub.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
 toranj2ikona = pygame.image.load('grafika/toranj2_ikona.png')
 toranj3ikona = pygame.image.load('grafika/toranj3_ikona.png')
+#UI
 slikaHover = pygame.image.load('grafika/hover.png')
 slikaOdabrano = pygame.image.load('grafika/odabrano.png')
+menuSlika = pygame.image.load('grafika\menu_obrub.png')
 menuLvl1 = pygame.image.load('grafika/menuLvl1.png')
 menuLvl2 = pygame.image.load('grafika/menuLvl2.png')
 menuLvl3 = pygame.image.load('grafika/menuLvl3.png')
 menuHover = pygame.image.load('grafika/menuHover.png')
+#mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
 put_dole = pygame.image.load('grafika/mapa/put_dole.png')
