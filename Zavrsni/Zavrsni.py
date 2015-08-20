@@ -26,6 +26,11 @@ menuLvl1 = pygame.image.load('grafika/menuLvl1.png')
 menuLvl2 = pygame.image.load('grafika/menuLvl2.png')
 menuLvl3 = pygame.image.load('grafika/menuLvl3.png')
 menuHover = pygame.image.load('grafika/menuHover.png')
+okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
+put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
+put_dole = pygame.image.load('grafika/mapa/put_dole.png')
+put_kutLD = pygame.image.load('grafika/mapa/put_kutLD.png')
+put_kutDD = pygame.image.load('grafika/mapa/put_kutDD.png')
 
 FPS = 30
 VisinaProzora = 640
@@ -93,13 +98,14 @@ def main ():
                     zgradaHP = lvlSeed.zgradaHP()
                     UI.postaviMrezu(grid)
                     UI.postaviNovce(startGold)
-                    lvl = Mapa(grid, VisinaProzora, SirinaProzora)
+                    lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD)
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
             if not kliknuto:
                 UI.hoverGlavniMenu(mousex, mousey)
             UI.crtajGlavniMenu()
         if mod == modIgra:
+            lvl.crtajMrezu(POVRSINA)
             if lvlSeed.vrijeme():
                 tip, brzina, HP = lvlSeed.vratiNeprijatelj()
                 if tip is not None:
@@ -120,7 +126,7 @@ def main ():
                 listaNeprijatelj[i].Pomakni()
             for i in range (len(listaNeprijatelj)):
                 NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
-            lvl.crtajMrezu(POVRSINA)
+            
             if kliknuto:
                 lijevo, gore = UI.poljeNaPixelu(mousex, mousey)
                 if lijevo is None and gore is None:
