@@ -48,10 +48,10 @@ class toranj(object):
             self.projektil = None
             self.index = tmpIndex
         if self.index > -1 and self.projektil is None:
-            self.projektil = metak(3, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona)
-        if self.projektil is not None:
             neprijatelj = listaNeprijatelja[self.index]
-            status = self.projektil.Pomak(neprijatelj)
+            self.projektil = metak(3, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj)
+        if self.projektil is not None:
+            status = self.projektil.Pomak()
         if status == 1:
             print ("Status: ", status)
             self.projektil = None
