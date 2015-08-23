@@ -50,13 +50,13 @@ class maestro(object):
             return None, None, None
         self.seed[self.index] = self.seed[self.index] - 1
         if self.index == 0:
-            return 1, 3, 15
+            return 1, 3, 30
         elif self.index == 1:
-            return 2, 2, 30
+            return 2, 2, 60
         elif self.index == 2:
-            return 3, 2, 50
+            return 3, 2, 80
         elif self.index == 3:
-            return 4, 1, 80
+            return 4, 1, 150
     def reset(self):
         self.Lvl = []
         self.seed = None

@@ -42,23 +42,23 @@ class toranj(object):
         self.POV.blit(s, (self.DometTornja.left,self.DometTornja.top))    # (0,0) are the top-left coordinates
     def Ciljanje (self, neprijatelji, metakIkona):
         listaNeprijatelja = neprijatelji
-        status = 0
+        status = -3
         tmpIndex = self.DometTornja.collidelist(listaNeprijatelja)
         if not self.index == tmpIndex:
-            self.projektil = None
+            #self.projektil = None
             self.index = tmpIndex
         if self.index > -1 and self.projektil is None:
             neprijatelj = listaNeprijatelja[self.index]
-            self.projektil = metak(3, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj)
+            self.projektil = metak(self.Aspeed, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj)
         if self.projektil is not None:
-            status = self.projektil.Pomak()
-        if status == 1:
+            status = self.projektil.Pomak(listaNeprijatelja)
+        if status > -1:
             print ("Status: ", status)
             self.projektil = None
             ind = self.index
             self.index = -1
-            return ind, self.damage
-        elif status == -1:
+            return status, self.damage
+        elif status == -2:
             self.index = -1
             self.projektil = None
             return -1, 0

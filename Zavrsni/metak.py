@@ -21,7 +21,7 @@ class metak(object):
         x = TockaBx - self.TockaAx
         y = TockaBy - self.TockaAy
         self.kut = atan2(y, x) / pi * 180
-    def Pomak(self):
+    def Pomak(self, neprijatelji):
         self.TockaAx += cos(self.kut*pi/180) * self.brzina
         self.TockaAy += sin(self.kut*pi/180) * self.brzina
 
@@ -29,6 +29,7 @@ class metak(object):
         self.ikonaRect.centerx = self.TockaAx
         self.ikonaRect.centery = self.TockaAy
         if not self.ikonaRect.colliderect(self.domet):
-            return -1
-        if self.ikonaRect.colliderect(self.meta):
-            return 1
+            return -2
+        return self.ikonaRect.collidelist(neprijatelji)
+        #if self.ikonaRect.colliderect(self.meta):
+        #    return 1
