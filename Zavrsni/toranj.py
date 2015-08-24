@@ -4,7 +4,7 @@ from metak import metak
 class toranj(object):
     """klasa za tornjeve
         ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage"""
-    def __init__(self, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage):
+    def __init__(self, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme):
         self.Aspeed = ASpeed
         self.poljex = poljex
         self.poljey = poljey
@@ -19,9 +19,12 @@ class toranj(object):
         self.ikonaRect = self.ikona.get_rect()
         self.domet = domet
         self.damage = damage
-        self.projektil = None
+        #self.projektil = None
+        self.projektil = []
         self.DometTornja = None
         self.index = -1
+        self.pocetno = pygame.time.get_ticks()
+        self.cooldown = vrijeme
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
@@ -40,27 +43,34 @@ class toranj(object):
         s.set_alpha(70)                # alpha level
         s.fill((84,48,15))           # this fills the entire surface
         self.POV.blit(s, (self.DometTornja.left,self.DometTornja.top))    # (0,0) are the top-left coordinates
+    def vrijeme(self):
+        trenutno = pygame.time.get_ticks()
+        if trenutno - self.pocetno >= self.cooldown:
+            self.pocetno = trenutno
+            return 1
     def Ciljanje (self, neprijatelji, metakIkona):
         listaNeprijatelja = neprijatelji
+        dmgLista = []
         status = -3
         tmpIndex = self.DometTornja.collidelist(listaNeprijatelja)
         if not self.index == tmpIndex:
-            #self.projektil = None
             self.index = tmpIndex
-        if self.index > -1 and self.projektil is None:
+        if self.index > -1 and self.vrijeme(): #and self.projektil is None:
             neprijatelj = listaNeprijatelja[self.index]
-            self.projektil = metak(self.Aspeed, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj)
-        if self.projektil is not None:
-            status = self.projektil.Pomak(listaNeprijatelja)
-        if status > -1:
-            print ("Status: ", status)
-            self.projektil = None
-            ind = self.index
-            self.index = -1
-            return status, self.damage
-        elif status == -2:
-            self.index = -1
-            self.projektil = None
-            return -1, 0
+            self.projektil.append(metak(self.Aspeed, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj))
+        if not self.projektil == []:
+            for i in self.projektil[:]:
+                status = i.Pomak(listaNeprijatelja)
+                if status > -1:
+                    print ("Status: ", status)
+                    self.projektil.remove(i)
+                    dmgLista.append([status, self.damage])
+                elif status == -2:
+                    self.index = -1
+                    self.projektil.remove(i)
+                    dmgLista.append([-1, 0])
+                else:
+                    dmgLista.append([-1, 0])
         else:
-            return -1, 0
+            dmgLista.append([-1, 0])
+        return dmgLista

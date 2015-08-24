@@ -108,6 +108,7 @@ def main ():
                 UI.hoverGlavniMenu(mousex, mousey)
             UI.crtajGlavniMenu()
         if mod == modIgra:
+            dmgLista = []
             lvl.crtajMrezu(POVRSINA)
             if lvlSeed.vrijeme():
                 tip, brzina, HP = lvlSeed.vratiNeprijatelj()
@@ -139,15 +140,15 @@ def main ():
                         grid[gore][lijevo] = T
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= 10:
-                                tornjevi.append(toranj(2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 3))
+                                tornjevi.append(toranj(2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 3, 2000))
                                 UI.azurirajNovce(-10)
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= 20:
-                                tornjevi.append(toranj(2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 3))
+                                tornjevi.append(toranj(2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 3, 2000))
                                 UI.azurirajNovce(-20)
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= 30:
-                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 7))
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 7, 2000))
                                 UI.azurirajNovce(-30)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
@@ -159,14 +160,17 @@ def main ():
                     UI.pozadina(odabraniToranj, slikaOdabrano)
             for i in range (len(tornjevi)):
                 tornjevi[i - 1].Crtaj()
-                index, damage = tornjevi[i - 1].Ciljanje(NeprijateljiRect, metakIkona)
-                if index > -1 and listaNeprijatelj:
-                    print (index)
-                    listaNeprijatelj[index].damage(damage)
-                    if listaNeprijatelj[index].vratiHP() < 1:
-                        UI.azurirajNovce(5)
-                        listaNeprijatelj.remove(listaNeprijatelj[index])
-                    index = -1
+                dmgLista.append(tornjevi[i - 1].Ciljanje(NeprijateljiRect, metakIkona))
+            if dmgLista != []:
+                for j in dmgLista:
+                    for i in j:
+                        if i[0] > -1 and listaNeprijatelj:
+                            print("Indeks: ", i[0], " damage: ", i[1])
+                            listaNeprijatelj[i[0]].damage(i[1])
+                            if listaNeprijatelj[i[0]].vratiHP() < 1:
+                                UI.azurirajNovce(5)
+                                listaNeprijatelj.remove(listaNeprijatelj[i[0]])
+                            #index = -1
             indekas = GlZgrada.damage(NeprijateljiRect)
             if indekas > -1:
                 print ("Damage: ", indekas)

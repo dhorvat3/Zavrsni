@@ -31,5 +31,3 @@ class metak(object):
         if not self.ikonaRect.colliderect(self.domet):
             return -2
         return self.ikonaRect.collidelist(neprijatelji)
-        #if self.ikonaRect.colliderect(self.meta):
-        #    return 1
