@@ -151,15 +151,15 @@ def main ():
                         grid[gore][lijevo] = T
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= 10:
-                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 3, 2000))
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 5, 2000))
                                 UI.azurirajNovce(-10)
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= 20:
-                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 3, 2000))
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 5, 2000))
                                 UI.azurirajNovce(-20)
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= 30:
-                                tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 7, 2000))
+                                tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 10, 2000))
                                 UI.azurirajNovce(-30)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
@@ -181,7 +181,6 @@ def main ():
                             if listaNeprijatelj[i[0]].vratiHP() < 1:
                                 UI.azurirajNovce(5)
                                 listaNeprijatelj.remove(listaNeprijatelj[i[0]])
-                            #index = -1
             indekas = GlZgrada.damage(NeprijateljiRect)
             if indekas > -1:
                 print ("Damage: ", indekas)
