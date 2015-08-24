@@ -28,6 +28,8 @@ menuLvl1 = pygame.image.load('grafika/menuLvl1.png')
 menuLvl2 = pygame.image.load('grafika/menuLvl2.png')
 menuLvl3 = pygame.image.load('grafika/menuLvl3.png')
 menuHover = pygame.image.load('grafika/menuHover.png')
+predjenLabel = pygame.image.load('grafika/predjenLvl.png')
+glavniMenu = pygame.image.load('grafika/menuGlavni.png')
 #mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
@@ -52,6 +54,7 @@ toranj2 = 'Toranj2'
 toranj3 = 'Toranj3'
 modMenu = 'menu'
 modIgra = 'igra'
+modPobjeda = 'Pobjeda'
 
 grid = []
 start = None
@@ -67,7 +70,7 @@ def main ():
     POVRSINA = pygame.display.set_mode((UkupnaVisina, SirinaProzora), 0, 32)
 
     lvlSeed = maestro()
-    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3)
+    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3, glavniMenu, predjenLabel)
     mousex = 0
     mousey = 0
     pygame.display.set_caption('Zavrsni')
@@ -87,7 +90,15 @@ def main ():
             if event.type == MOUSEBUTTONUP:
                 mousex, mousey = event.pos
                 kliknuto = True
-        if mod == modMenu:
+        if mod == modPobjeda:
+            #UI.CrtajPobjedu()
+            if kliknuto:
+                if UI.kliknutoPobjeda(mousex, mousey):
+                    mod = modMenu
+            if not kliknuto:
+                UI.hoverPobjeda(mousex, mousey)
+            UI.CrtajPobjedu()
+        elif mod == modMenu:
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
@@ -107,7 +118,7 @@ def main ():
             if not kliknuto:
                 UI.hoverGlavniMenu(mousex, mousey)
             UI.crtajGlavniMenu()
-        if mod == modIgra:
+        elif mod == modIgra:
             dmgLista = []
             lvl.crtajMrezu(POVRSINA)
             if lvlSeed.vrijeme():
@@ -140,15 +151,15 @@ def main ():
                         grid[gore][lijevo] = T
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= 10:
-                                tornjevi.append(toranj(2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 3, 2000))
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 3, 2000))
                                 UI.azurirajNovce(-10)
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= 20:
-                                tornjevi.append(toranj(2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 3, 2000))
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 3, 2000))
                                 UI.azurirajNovce(-20)
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= 30:
-                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 7, 2000))
+                                tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 7, 2000))
                                 UI.azurirajNovce(-30)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
@@ -180,7 +191,7 @@ def main ():
             if len(listaNeprijatelj) < 1 and pocetak == 0:
                 pocetak = 1
                 print ("Pobeda")
-                mod = modMenu
+                mod = modPobjeda
                 odabraniLvl = None
                 grid = []
                 lvlSeed.obrisiLvl()

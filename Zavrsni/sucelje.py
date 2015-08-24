@@ -2,7 +2,7 @@
 
 class sucelje(object):
     """Definiranje korisniskog su?elja"""
-    def __init__(self, visina, sirina, POV, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3):
+    def __init__(self, visina, sirina, POV, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3, ikonaGlavni, ikonaPredjen):
         self.visina = visina
         self.sirina = sirina
         self.brojRedova = 0
@@ -21,6 +21,10 @@ class sucelje(object):
         self.Lvl2Rect = self.menuLvl2.get_rect()
         self.menuLvl3 = ikonaLvl3
         self.Lvl3Rect = self.menuLvl3.get_rect()
+        self.ikonaGlavni = ikonaGlavni
+        self.ikonaGlavniRect = self.ikonaGlavni.get_rect()
+        self.ikonaPredjen = ikonaPredjen
+        self.ikonaPredjenRect = self.ikonaPredjen.get_rect()
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
@@ -129,3 +133,16 @@ class sucelje(object):
         self.brojStupaca = len(self.mapa[0])
     def postaviNovce(self, novci):
         self.pare = novci
+    def CrtajPobjedu(self):
+        self.ikonaPredjenRect.x = 0
+        self.ikonaPredjenRect.y = 50
+        self.POVRSINA.blit(self.ikonaPredjen, self.ikonaPredjenRect)
+        self.ikonaGlavniRect.x = 100
+        self.ikonaGlavniRect.y = 50 + 120 + 50
+        self.POVRSINA.blit(self.ikonaGlavni, self.ikonaGlavniRect)
+    def kliknutoPobjeda(self, x, y):
+        if self.ikonaGlavniRect.collidepoint(x, y):
+            return 1
+    def hoverPobjeda(self, x, y):
+        if self.ikonaGlavniRect.collidepoint(x, y):
+            self.POVRSINA.blit(self.menuHover, self.ikonaGlavniRect)
