@@ -12,7 +12,7 @@ from pygame.locals import QUIT, KEYUP, K_ESCAPE, MOUSEBUTTONUP, MOUSEMOTION
 
 #objekti igre
 metakIkona = pygame.image.load('grafika\metak.png')
-ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelji/neprijatelj1_ikona.png')
+ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelj1.png')
 ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelj2.png')
 ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelj3.png')
 ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelj4.png')
