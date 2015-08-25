@@ -3,7 +3,7 @@ from metak import metak
 
 class toranj(object):
     """klasa za tornjeve
-        ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage"""
+        ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
     def __init__(self, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme):
         self.Aspeed = ASpeed
         self.poljex = poljex
