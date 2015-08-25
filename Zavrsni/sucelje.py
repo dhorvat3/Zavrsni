@@ -134,7 +134,7 @@ class sucelje(object):
     def postaviNovce(self, novci):
         self.pare = novci
     def CrtajPobjedu(self):
-        self.ikonaPredjenRect.x = 0
+        self.ikonaPredjenRect.x = 100
         self.ikonaPredjenRect.y = 50
         self.POVRSINA.blit(self.ikonaPredjen, self.ikonaPredjenRect)
         self.ikonaGlavniRect.x = 100

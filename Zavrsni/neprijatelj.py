@@ -163,5 +163,11 @@ class neprijatelj(object):
             self.v = 0;
         lblHP = self.font.render((str(self.trenutniHP) + "/" + str(self.MaxHP)), 1, (0, 0, 0))
         self.ikonaRect = self.ikonaRect.move([brzinaX, brzinaY])
+        postotak = int((self.trenutniHP/self.MaxHP*100)/2)
+        for i in range(50):
+            if i < postotak:
+                pygame.draw.rect(self.POVRSINA, (255, 47, 15), (self.ikonaRect.x + i, self.ikonaRect.y - 3, 1, 2))
+            else:
+                pygame.draw.rect(self.POVRSINA, (0 , 0, 0), (self.ikonaRect.x + i, self.ikonaRect.y - 3, 1, 2))
         self.POVRSINA.blit(self.ikona, self.ikonaRect.topleft)
         self.POVRSINA.blit(lblHP, self.ikonaRect.topleft)
