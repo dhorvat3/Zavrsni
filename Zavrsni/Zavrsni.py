@@ -16,6 +16,10 @@ ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelji/neprijatelj1_idle.pn
 ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelji/neprijatelj2_idle.png')
 ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelji/neprijatelj3_idle.png')
 ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelji/neprijatelj4_idle.png')
+dmgikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelji/neprijatelj1_dmg.png')
+dmgikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelji/neprijatelj2_dmg.png')
+dmgikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelji/neprijatelj3_dmg.png')
+dmgikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelji/neprijatelj4_dmg.png')
 glavnaZgrada = pygame.image.load('grafika\zgrada.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
 toranj2ikona = pygame.image.load('grafika/toranj2_ikona.png')
@@ -126,13 +130,17 @@ def main ():
                 if tip is not None:
                     if tip == 1:
                         ikona = ikonaNeprijatelj1
+                        dmgIkona = dmgikonaNeprijatelj1
                     elif tip == 2:
                         ikona = ikonaNeprijatelj2
+                        dmgIkona = dmgikonaNeprijatelj2
                     elif tip == 3:
                         ikona = ikonaNeprijatelj3
+                        dmgIkona = dmgikonaNeprijatelj3
                     else:
                         ikona = ikonaNeprijatelj4
-                    listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, HP))
+                        dmgIkona = dmgikonaNeprijatelj4
+                    listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, dmgIkona, HP))
                 else:
                     pocetak = 0
             NeprijateljiRect = []

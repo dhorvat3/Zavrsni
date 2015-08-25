@@ -2,7 +2,7 @@
 
 class neprijatelj(object):
     """Klasa neprijatelja"""
-    def __init__(self, polje, Visina, Sirina, pocetak, kraj, POV, brzina, smjer, ikona, HP):
+    def __init__(self, polje, Visina, Sirina, pocetak, kraj, POV, brzina, smjer, ikona, dmgIkona, HP):
         self.grid = polje
         self.visina = Visina
         self.sirina = Sirina
@@ -23,6 +23,9 @@ class neprijatelj(object):
         self.MaxHP = HP
         self.trenutniHP = HP
         self.font = pygame.font.SysFont("monospace", 10)
+        self.dmgIkona = dmgIkona
+        self.dmg = 0
+        self.dmgTimer = pygame.time.get_ticks()
     def lijevoGore(self, boxx, boxy, sirina, visina, brojRedova, brojStupaca):
         trecinax = int(sirina/brojRedova)
         trecinay = int(visina/brojStupaca)
@@ -41,6 +44,8 @@ class neprijatelj(object):
 
     def damage(self, iznos):
         self.trenutniHP = self.trenutniHP - iznos
+        self.dmg = 1
+        self.dmgTimer = pygame.time.get_ticks()
     def vratiHP (self):
         return self.trenutniHP
     def Pomakni(self):
@@ -169,5 +174,9 @@ class neprijatelj(object):
                 pygame.draw.rect(self.POVRSINA, (255, 47, 15), (self.ikonaRect.x + i, self.ikonaRect.y - 3, 1, 2))
             else:
                 pygame.draw.rect(self.POVRSINA, (0 , 0, 0), (self.ikonaRect.x + i, self.ikonaRect.y - 3, 1, 2))
-        self.POVRSINA.blit(self.ikona, self.ikonaRect.topleft)
+        trenutno = pygame.time.get_ticks()
+        if (trenutno - self.dmgTimer <= 600) and self.dmg == 1:
+            self.POVRSINA.blit(self.dmgIkona, self.ikonaRect.topleft)
+        else:
+            self.POVRSINA.blit(self.ikona, self.ikonaRect.topleft)
         #self.POVRSINA.blit(lblHP, self.ikonaRect.topleft)
