@@ -12,10 +12,10 @@ from pygame.locals import QUIT, KEYUP, K_ESCAPE, MOUSEBUTTONUP, MOUSEMOTION
 
 #objekti igre
 metakIkona = pygame.image.load('grafika\metak.png')
-ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelj1.png')
-ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelj2.png')
-ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelj3.png')
-ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelj4.png')
+ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelji/neprijatelj1_idle.png')
+ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelji/neprijatelj2_idle.png')
+ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelji/neprijatelj3_idle.png')
+ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelji/neprijatelj4_idle.png')
 glavnaZgrada = pygame.image.load('grafika\zgrada.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
 toranj2ikona = pygame.image.load('grafika/toranj2_ikona.png')
@@ -124,11 +124,11 @@ def main ():
             if lvlSeed.vrijeme():
                 tip, brzina, HP = lvlSeed.vratiNeprijatelj()
                 if tip is not None:
-                    if tip == 0:
+                    if tip == 1:
                         ikona = ikonaNeprijatelj1
-                    elif tip == 1:
-                        ikona = ikonaNeprijatelj2
                     elif tip == 2:
+                        ikona = ikonaNeprijatelj2
+                    elif tip == 3:
                         ikona = ikonaNeprijatelj3
                     else:
                         ikona = ikonaNeprijatelj4

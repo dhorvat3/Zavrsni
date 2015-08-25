@@ -161,7 +161,7 @@ class neprijatelj(object):
             brzinaX = brzina
         if self.x == self.kraj[0] and self.y == self.kraj[1]:
             self.v = 0;
-        lblHP = self.font.render((str(self.trenutniHP) + "/" + str(self.MaxHP)), 1, (0, 0, 0))
+        #lblHP = self.font.render((str(self.trenutniHP) + "/" + str(self.MaxHP)), 1, (0, 0, 0))
         self.ikonaRect = self.ikonaRect.move([brzinaX, brzinaY])
         postotak = int((self.trenutniHP/self.MaxHP*100)/2)
         for i in range(50):
@@ -170,4 +170,4 @@ class neprijatelj(object):
             else:
                 pygame.draw.rect(self.POVRSINA, (0 , 0, 0), (self.ikonaRect.x + i, self.ikonaRect.y - 3, 1, 2))
         self.POVRSINA.blit(self.ikona, self.ikonaRect.topleft)
-        self.POVRSINA.blit(lblHP, self.ikonaRect.topleft)
+        #self.POVRSINA.blit(lblHP, self.ikonaRect.topleft)
