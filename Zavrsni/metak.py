@@ -12,7 +12,6 @@ class metak(object):
         self.TockaAy = self.ishodiste.centery
         self.ikona = ikona
         self.ikonaRect = self.ikona.get_rect()
-        self.POV.blit(ikona, self.ishodiste.center)
         self.domet = domet
         self.pocetniPomak = 2
         self.meta = meta
@@ -24,8 +23,7 @@ class metak(object):
     def Pomak(self, neprijatelji):
         self.TockaAx += cos(self.kut*pi/180) * self.brzina
         self.TockaAy += sin(self.kut*pi/180) * self.brzina
-
-        self.POV.blit(self.ikona, (self.TockaAx, self.TockaAy))
+        self.POV.blit(pygame.transform.rotate(self.ikona, -self.kut), (self.TockaAx, self.TockaAy))
         self.ikonaRect.centerx = self.TockaAx
         self.ikonaRect.centery = self.TockaAy
         if not self.ikonaRect.colliderect(self.domet):

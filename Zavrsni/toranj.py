@@ -1,21 +1,23 @@
 ﻿import pygame
 from metak import metak
+from math import atan2, pi
 
 class toranj(object):
     """klasa za tornjeve
         ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
-    def __init__(self, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme):
+    def __init__(self, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona):
         self.Aspeed = ASpeed
         self.poljex = poljex
         self.poljey = poljey
         self.grid = grid
         self.POV = POV;
+        self.ikona = ikona
         self.visina = Visina
         self.sirina = Sirina
         self.brojRedova = len(self.grid)
         self.brojStupaca = len(self.grid[0])
-        self.ikona = pygame.Surface((self.visina/self.brojRedova - 20, self.sirina/self.brojStupaca - 20)).convert()
-        self.ikona.fill((20, 150, 30))
+        #self.ikona = pygame.Surface((self.visina/self.brojRedova - 20, self.sirina/self.brojStupaca - 20)).convert()
+        #self.ikona.fill((20, 150, 30))
         self.ikonaRect = self.ikona.get_rect()
         self.domet = domet
         self.damage = damage
@@ -25,6 +27,7 @@ class toranj(object):
         self.index = -1
         self.pocetno = pygame.time.get_ticks()
         self.cooldown = vrijeme
+        self.kut = 0
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
@@ -35,7 +38,8 @@ class toranj(object):
         lijevo, gore = self.lijevoGore(self.poljex, self.poljey)
         self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey) + 10
         self.ikonaRect.y = self.sirina/self.brojStupaca*(self.poljex) + 10
-        self.POV.blit(self.ikona, self.ikonaRect)
+        #self.POV.blit(self.ikona, self.ikonaRect)
+        self.POV.blit(pygame.transform.rotate(self.ikona, -self.kut), (self.ikonaRect.x, self.ikonaRect.y))
         self.DometTornja = self.ikonaRect.copy()
         self.DometTornja = self.DometTornja.inflate(self.domet, self.domet);
         #Crtanje kvadrata s alpha vrijednostima
@@ -58,6 +62,12 @@ class toranj(object):
         if self.index > -1 and self.vrijeme(): #and self.projektil is None:
             neprijatelj = listaNeprijatelja[self.index]
             self.projektil.append(metak(self.Aspeed, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj))
+        elif self.index > -1:
+            neprijatelj = listaNeprijatelja[self.index]
+        else:
+            neprijatelj = None
+        if self.index > -1 and neprijatelj is not None:
+            self.kut = atan2(neprijatelj.centery - self.ikonaRect.centery, neprijatelj.centerx - self.ikonaRect.centerx) / pi * 180
         if not self.projektil == []:
             for i in self.projektil[:]:
                 status = i.Pomak(listaNeprijatelja)

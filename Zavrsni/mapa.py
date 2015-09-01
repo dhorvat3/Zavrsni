@@ -2,7 +2,7 @@
 
 class Mapa(object):
     """Klasa objekta mapa"""
-    def __init__(self, polje, visina, sirina, okolis, put_ravno, put_dole, put_kutLD, put_kut_DD):
+    def __init__(self, polje, visina, sirina, okolis, put_ravno, put_dole, put_kutLD, put_kut_DD, put_kraj, put_kraj_D, put_pocetak_D, put_pocetak_G):
         '''Stvaranje objekta mape, uzma polje po kojem generira mapu s obzirom na rezoluciju ekrana'''
         self.grid = polje
         self.brojRedova = len(self.grid)
@@ -18,13 +18,33 @@ class Mapa(object):
         self.put_kutDD = put_kut_DD
         self.put_kutDG = pygame.transform.rotate(self.put_kutDD, 180)
         self.put_kutGD = pygame.transform.rotate(self.put_kutLD, 180)
+        self.put_kraj = put_kraj
+        self.put_kraj_D = put_kraj_D
+        self.put_pocetak_D = put_pocetak_D
+        self.put_pocetak_G = put_pocetak_G
         self.putRect = self.put_ravno.get_rect()
-    def crtajMrezu (self, POV):
+    def crtajMrezu (self, POV, pocetak, kraj):
         '''Crta mapu'''
         dimX = int(self.ekranVisina/self.brojRedova)
         dimY = int(self.ekranSirina/self.brojStupaca)
         for i in range(self.brojRedova):
             for j in range(self.brojStupaca):
+                if i == kraj[0] and j == kraj[1] and kraj[1] + 1 < 10:
+                    self.okolisRect.x = dimX * j
+                    self.okolisRect.y = dimY * i
+                    POV.blit(self.put_kraj, self.okolisRect)
+                elif i == kraj[0] and j == kraj[1] and kraj[0] + 1 < 10:
+                    self.okolisRect.x = dimX * j
+                    self.okolisRect.y = dimY * i
+                    POV.blit(self.put_kraj_D, self.okolisRect)
+                if i == pocetak[0] - 1 and j == pocetak[1] and pocetak[1] - 1 < 0:
+                    self.okolisRect.x = dimX * j
+                    self.okolisRect.y = dimY * i
+                    POV.blit(self.put_pocetak_D, self.okolisRect)
+                elif i == pocetak[0] - 1 and j == pocetak[1] and pocetak[0] -2 < 0:
+                    self.okolisRect.x = dimX * j
+                    self.okolisRect.y = dimY * i
+                    POV.blit(self.put_pocetak_G, self.okolisRect)
                 if self.grid[i][j] == 'S' or self.grid[i][j] == 'D' or self.grid[i][j] == 'L' or self.grid[i][j] == 'T':
                     self.okolisRect.x = dimX * j
                     self.okolisRect.y = dimY * i

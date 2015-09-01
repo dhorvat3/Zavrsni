@@ -24,6 +24,9 @@ glavnaZgrada = pygame.image.load('grafika\zgrada.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
 toranj2ikona = pygame.image.load('grafika/toranj2_ikona.png')
 toranj3ikona = pygame.image.load('grafika/toranj3_ikona.png')
+toranj1slika = pygame.image.load('grafika/tornjevi/toranj1.png')
+toranj2slika = pygame.image.load('grafika/tornjevi/toranj2.png')
+toranj3slika = pygame.image.load('grafika/tornjevi/toranj3.png')
 #UI
 slikaHover = pygame.image.load('grafika/hover.png')
 slikaOdabrano = pygame.image.load('grafika/odabrano.png')
@@ -40,6 +43,10 @@ put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
 put_dole = pygame.image.load('grafika/mapa/put_dole.png')
 put_kutLD = pygame.image.load('grafika/mapa/put_kutLD.png')
 put_kutDD = pygame.image.load('grafika/mapa/put_kutDD.png')
+put_kraj = pygame.image.load('grafika/mapa/put_kraj.png')
+put_kraj_D = pygame.image.load('grafika/mapa/put_kraj_D.png')
+put_pocetak_D = pygame.image.load('grafika/mapa/pocetak_D.png')
+put_pocetak_G = pygame.image.load('grafika/mapa/pocetak_G.png')
 
 FPS = 30
 VisinaProzora = 640
@@ -116,7 +123,7 @@ def main ():
                     zgradaHP = lvlSeed.zgradaHP()
                     UI.postaviMrezu(grid)
                     UI.postaviNovce(startGold)
-                    lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD)
+                    lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD, put_kraj, put_kraj_D, put_pocetak_D, put_pocetak_G)
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
             if not kliknuto:
@@ -124,7 +131,7 @@ def main ():
             UI.crtajGlavniMenu()
         elif mod == modIgra:
             dmgLista = []
-            lvl.crtajMrezu(POVRSINA)
+            lvl.crtajMrezu(POVRSINA, start, kraj)
             if lvlSeed.vrijeme():
                 tip, brzina, HP = lvlSeed.vratiNeprijatelj()
                 if tip is not None:
@@ -156,18 +163,20 @@ def main ():
                     odabraniToranj = UI.odabraniToranj(mousex, mousey, slikaOdabrano)
                 elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
                     if odabraniToranj is not None:
-                        grid[gore][lijevo] = T
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= 10:
-                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 5, 2000))
+                                grid[gore][lijevo] = T
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, 5, 2000, toranj1slika))
                                 UI.azurirajNovce(-10)
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= 20:
-                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 5, 2000))
+                                grid[gore][lijevo] = T
+                                tornjevi.append(toranj(3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 5, 2000, toranj2slika))
                                 UI.azurirajNovce(-20)
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= 30:
-                                tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 10, 2000))
+                                grid[gore][lijevo] = T
+                                tornjevi.append(toranj(4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, 10, 2000, toranj3slika))
                                 UI.azurirajNovce(-30)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
