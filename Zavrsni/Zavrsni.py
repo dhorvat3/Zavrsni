@@ -44,7 +44,6 @@ toranj_upgrade_hover = pygame.image.load('grafika/tornjevi/toranj_upgrade_h.png'
 izgubljenoSlika = pygame.image.load('grafika/izgubljenLvl.png')
 ikonaStart = pygame.image.load('grafika/ikonaStart.png')
 ikonaStart_H = pygame.image.load('grafika/ikonaStart_H.png')
-
 #mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
@@ -55,6 +54,8 @@ put_kraj = pygame.image.load('grafika/mapa/put_kraj.png')
 put_kraj_D = pygame.image.load('grafika/mapa/put_kraj_D.png')
 put_pocetak_D = pygame.image.load('grafika/mapa/pocetak_D.png')
 put_pocetak_G = pygame.image.load('grafika/mapa/pocetak_G.png')
+#glazba
+#lvl1gazba = pygame.mixer.music.load('glazba/lvl1.mp3')
 
 FPS = 30
 VisinaProzora = 640
@@ -98,6 +99,9 @@ def main ():
     FPSCLOCK = pygame.time.Clock()
     POVRSINA = pygame.display.set_mode((UkupnaVisina, SirinaProzora), 0, 32)
 
+    pygame.mixer.music.load('glazba/menu.ogg')
+    pygame.mixer.music.play(-1, 0.0)
+
     lvlSeed = maestro()
     UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3, glavniMenu, predjenLabel, toranj_upgrade_hover, ikonaStart_H)
     mousex = 0
@@ -124,7 +128,6 @@ def main ():
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
-                    #lvlSeed = maestro()
                     mod = modIgra
                     lvlSeed.lvlLoad(odabraniLvl)
                     grid = lvlSeed.grid()
@@ -135,6 +138,11 @@ def main ():
                     zgradaHP = lvlSeed.zgradaHP()
                     UI.postaviMrezu(grid)
                     UI.postaviNovce(startGold)
+                    pygame.mixer.music.fadeout(1000)
+                    pygame.mixer.music.load('glazba/' + odabraniLvl + '.ogg')
+                    
+                    pygame.mixer.music.play(-1, 0.0)
+                    pygame.mixer.music.set_volume(0.3)
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD, put_kraj, put_kraj_D, put_pocetak_D, put_pocetak_G)
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
@@ -156,18 +164,18 @@ def main ():
                 UI.hoverPobjeda(mousex, mousey)
             UI.CrtajIzgubljeno(izgubljenoSlika)
         elif mod == modIgra:
-            print ("Pocetak: ", startVrijeme)
-            print ("Start: ", startKliknut)
+            #print ("Pocetak: ", startVrijeme)
+            #print ("Start: ", startKliknut)
             dmgLista = []
             lvl.crtajMrezu(POVRSINA, start, kraj)
             if startKliknut:
                 if startVrijeme:
                     startVrijeme = 0
-                    print ("Vrijeme")
+                    #print ("Vrijeme")
                     lvlSeed.postaviVrijeme()
                 elif lvlSeed.vrijeme():
                     tip, brzina, HP = lvlSeed.vratiNeprijatelj()
-                    print ("Tip: ", tip)
+                    #print ("Tip: ", tip)
                     if tip is not None:
                         if tip == 1:
                             ikona = ikonaNeprijatelj1
@@ -186,14 +194,16 @@ def main ():
                         pocetak = 0
             NeprijateljiRect = []
             GlZgrada.crtaj()
-            #for i in range (len(listaNeprijatelj)):
-            #    listaNeprijatelj[i].Pomakni()
-            #for i in range (len(listaNeprijatelj)):
-            #    NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
-            for i in listaNeprijatelj:
-                i.Pomakni()
-            for i in listaNeprijatelj:
-                NeprijateljiRect.append(i.ikonaRect)
+
+            for i in range (len(listaNeprijatelj)):
+                listaNeprijatelj[i].Pomakni()
+            for i in range (len(listaNeprijatelj)):
+                NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
+
+            #for i in listaNeprijatelj:
+            #    i.Pomakni()
+            #for i in listaNeprijatelj:
+            #    NeprijateljiRect.append(i.ikonaRect)
 
             if kliknuto:
                 if not startKliknut:
@@ -268,6 +278,9 @@ def main ():
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
             if GlZgrada.vratiHP()[0] <= 0:
+                pygame.mixer.music.fadeout(1000)
+                pygame.mixer.music.load('glazba/menu.ogg')
+                pygame.mixer.music.play()
                 pocetak = 1
                 print("Izgubljeno")
                 mod = modIzgubljeno
@@ -283,6 +296,9 @@ def main ():
                 startVrijeme = 1
                 startKliknut = 0
             if len(listaNeprijatelj) < 1 and pocetak == 0:
+                pygame.mixer.music.fadeout(1000)
+                pygame.mixer.music.load('glazba/menu.ogg')
+                pygame.mixer.music.play(-1, 0.0)
                 pocetak = 1
                 print ("Pobeda")
                 mod = modPobjeda
