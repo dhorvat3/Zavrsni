@@ -178,3 +178,11 @@ class sucelje(object):
     def hoverPobjeda(self, x, y):
         if self.ikonaGlavniRect.collidepoint(x, y):
             self.POVRSINA.blit(self.menuHover, self.ikonaGlavniRect)
+    def CrtajIzgubljeno(self, ikona):
+        ikonaRect = ikona.get_rect()
+        ikonaRect.x = 100
+        ikonaRect.y = 50
+        self.POVRSINA.blit(ikona, ikonaRect)
+        self.ikonaGlavniRect.x = 100
+        self.ikonaGlavniRect.y = 50 + 120 + 50
+        self.POVRSINA.blit(self.ikonaGlavni, self.ikonaGlavniRect)

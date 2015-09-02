@@ -41,6 +41,7 @@ toranj1_upgrade = pygame.image.load('grafika/tornjevi/toranj1_upgrade.png')
 toranj2_upgrade = pygame.image.load('grafika/tornjevi/toranj2_upgrade.png')
 toranj3_upgrade = pygame.image.load('grafika/tornjevi/toranj3_upgrade.png')
 toranj_upgrade_hover = pygame.image.load('grafika/tornjevi/toranj_upgrade_h.png')
+izgubljenoSlika = pygame.image.load('grafika/izgubljenLvl.png')
 #mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
@@ -73,6 +74,7 @@ toranj3 = 'Toranj3'
 modMenu = 'menu'
 modIgra = 'igra'
 modPobjeda = 'Pobjeda'
+modIzgubljeno = 'Izgubljeno'
 
 grid = []
 start = None
@@ -121,6 +123,13 @@ def main ():
             if not kliknuto:
                 UI.hoverPobjeda(mousex, mousey)
             UI.CrtajPobjedu()
+        if mod == modIzgubljeno:
+            if kliknuto:
+                if UI.kliknutoPobjeda(mousex, mousey):
+                    mod = modMenu
+            if not kliknuto:
+                UI.hoverPobjeda(mousex, mousey)
+            UI.CrtajIzgubljeno(izgubljenoSlika)
         elif mod == modMenu:
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
@@ -239,6 +248,19 @@ def main ():
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
+            if GlZgrada.vratiHP()[0] <= 0:
+                pocetak = 1
+                print("Izgubljeno")
+                mod = modIzgubljeno
+                odabraniLvl = None
+                listaNeprijatelj = []
+                grid = []
+                lvlSeed.obrisiLvl()
+                UI.postaviNovce(0)
+                dmg1 = 5
+                dmg2 = 5
+                dmg3 = 10
+                lvlSeed.reset()
             if len(listaNeprijatelj) < 1 and pocetak == 0:
                 pocetak = 1
                 print ("Pobeda")
