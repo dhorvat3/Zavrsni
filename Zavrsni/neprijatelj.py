@@ -2,7 +2,7 @@
 
 class neprijatelj(object):
     """Klasa neprijatelja"""
-    def __init__(self, polje, Visina, Sirina, pocetak, kraj, POV, brzina, smjer, ikona, dmgIkona, HP):
+    def __init__(self, polje, Visina, Sirina, pocetak, kraj, POV, brzina, smjer, ikona, dmgIkona, HP, zvuk):
         self.grid = polje
         self.visina = Visina
         self.sirina = Sirina
@@ -26,6 +26,7 @@ class neprijatelj(object):
         self.dmgIkona = dmgIkona
         self.dmg = 0
         self.dmgTimer = pygame.time.get_ticks()
+        self.zvuk = zvuk
     def lijevoGore(self, boxx, boxy, sirina, visina, brojRedova, brojStupaca):
         trecinax = int(sirina/brojRedova)
         trecinay = int(visina/brojStupaca)
@@ -43,6 +44,8 @@ class neprijatelj(object):
         return (None, None)
 
     def damage(self, iznos):
+        self.zvuk.set_volume(.1)
+        self.zvuk.play(0)
         self.trenutniHP = self.trenutniHP - iznos
         self.dmg = 1
         self.dmgTimer = pygame.time.get_ticks()

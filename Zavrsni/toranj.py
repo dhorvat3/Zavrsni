@@ -5,7 +5,7 @@ from math import atan2, pi
 class toranj(object):
     """klasa za tornjeve
         ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
-    def __init__(self, tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona):
+    def __init__(self, tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona, pucanj):
         self.Aspeed = ASpeed
         self.poljex = poljex
         self.poljey = poljey
@@ -29,6 +29,7 @@ class toranj(object):
         self.pocetno = pygame.time.get_ticks()
         self.cooldown = vrijeme
         self.kut = 0
+        self.pucanj = pucanj
     def vratiTip (self):
         return self.tip
     def upgradeDMG(self, iznos):
@@ -73,6 +74,7 @@ class toranj(object):
         if not self.index == tmpIndex:
             self.index = tmpIndex
         if self.index > -1 and self.vrijeme(): #and self.projektil is None:
+            self.pucanj.play(0)
             neprijatelj = listaNeprijatelja[self.index]
             self.projektil.append(metak(self.Aspeed, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj))
         elif self.index > -1:

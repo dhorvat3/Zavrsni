@@ -54,8 +54,6 @@ put_kraj = pygame.image.load('grafika/mapa/put_kraj.png')
 put_kraj_D = pygame.image.load('grafika/mapa/put_kraj_D.png')
 put_pocetak_D = pygame.image.load('grafika/mapa/pocetak_D.png')
 put_pocetak_G = pygame.image.load('grafika/mapa/pocetak_G.png')
-#glazba
-#lvl1gazba = pygame.mixer.music.load('glazba/lvl1.mp3')
 
 FPS = 30
 VisinaProzora = 640
@@ -95,9 +93,15 @@ def main ():
     startKliknut = 0
     startVrijeme = 1
 
+    pygame.mixer.pre_init(44100, 16, 2, 4096)
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
     POVRSINA = pygame.display.set_mode((UkupnaVisina, SirinaProzora), 0, 32)
+
+    #zvukovi
+    pucanjZvuk = pygame.mixer.Sound("glazba/pucanj.ogg")
+    ouchZvuk = pygame.mixer.Sound("glazba/ouch.ogg")
+    smrtZvuk = pygame.mixer.Sound("glazba/smrt.ogg")
 
     pygame.mixer.music.load('glazba/menu.ogg')
     pygame.mixer.music.play(-1, 0.0)
@@ -189,7 +193,7 @@ def main ():
                         else:
                             ikona = ikonaNeprijatelj4
                             dmgIkona = dmgikonaNeprijatelj4
-                        listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, dmgIkona, HP))
+                        listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, dmgIkona, HP, ouchZvuk))
                     else:
                         pocetak = 0
             NeprijateljiRect = []
@@ -239,17 +243,17 @@ def main ():
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= 10:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(1, 3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, dmg1, 2000, toranj1slika))
+                                tornjevi.append(toranj(1, 3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, dmg1, 2000, toranj1slika, pucanjZvuk))
                                 UI.azurirajNovce(-10)
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= 20:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(2, 3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg2, 2000, toranj2slika))
+                                tornjevi.append(toranj(2, 3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg2, 2000, toranj2slika, pucanjZvuk))
                                 UI.azurirajNovce(-20)
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= 30:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(3, 4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg3, 2000, toranj3slika))
+                                tornjevi.append(toranj(3, 4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg3, 2000, toranj3slika, pucanjZvuk))
                                 UI.azurirajNovce(-30)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
@@ -269,6 +273,7 @@ def main ():
                             print("Indeks: ", i[0], " damage: ", i[1])
                             listaNeprijatelj[i[0]].damage(i[1])
                             if listaNeprijatelj[i[0]].vratiHP() < 1:
+                                smrtZvuk.play(0)
                                 UI.azurirajNovce(5)
                                 listaNeprijatelj.remove(listaNeprijatelj[i[0]])
             indekas = GlZgrada.damage(NeprijateljiRect)
