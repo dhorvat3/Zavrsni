@@ -120,7 +120,6 @@ def main ():
                 mousex, mousey = event.pos
                 kliknuto = True
         if mod == modPobjeda:
-            #UI.CrtajPobjedu()
             if kliknuto:
                 if UI.kliknutoPobjeda(mousex, mousey):
                     mod = modMenu
@@ -138,6 +137,7 @@ def main ():
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
+                    #lvlSeed = maestro()
                     mod = modIgra
                     lvlSeed.lvlLoad(odabraniLvl)
                     grid = lvlSeed.grid()
@@ -158,6 +158,8 @@ def main ():
             dmgLista = []
             lvl.crtajMrezu(POVRSINA, start, kraj)
             if startKliknut:
+                if not pocetak:
+                    lvlSeed.postaviVrijeme()
                 if lvlSeed.vrijeme():
                     tip, brzina, HP = lvlSeed.vratiNeprijatelj()
                     if tip is not None:

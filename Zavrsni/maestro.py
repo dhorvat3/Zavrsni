@@ -8,6 +8,8 @@ class maestro(object):
         self.index = 0
         self.pocetno = pygame.time.get_ticks()
         self.razmak = 1000
+    def postaviVrijeme(self):
+        self.pocetno = pygame.time.get_ticks()
     def lvlLoad(self, odabraniLvl):
         f = open('lvl/' + str(odabraniLvl) + '.txt')
         redovi = f.readlines()
