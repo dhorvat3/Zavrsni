@@ -2,7 +2,7 @@
 
 class sucelje(object):
     """Definiranje korisniskog su?elja"""
-    def __init__(self, visina, sirina, POV, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3, ikonaGlavni, ikonaPredjen, upgradeHover):
+    def __init__(self, visina, sirina, POV, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3, ikonaGlavni, ikonaPredjen, upgradeHover, startHover):
         self.visina = visina
         self.sirina = sirina
         self.brojRedova = 0
@@ -18,6 +18,8 @@ class sucelje(object):
         self.toranj2_uRect = None
         self.toranj3Rect = None
         self.toranj3_uRect = None
+        self.startRect = None
+        self.ikonaStart_H = startHover
         self.upgradeHover = upgradeHover
         self.menuHover = ikonaHover
         self.menuLvl1 = ikonaLvl1
@@ -51,7 +53,7 @@ class sucelje(object):
         if poljex != None and poljey != None and self.mapa[poljey][poljex] != 'Z':
             lijevo, gore = self.lijevoGore(poljex, poljey)
             pygame.draw.rect(self.POVRSINA, (60,  60, 100), (lijevo, gore, self.visina/self.brojRedova, self.sirina/self.brojStupaca), 3)
-        elif x is not None and y is not None and self.toranj1Rect is not None and self.toranj2Rect is not None and self.toranj3Rect is not None and self.toranj1_uRect is not None and self.toranj2_uRect is not None and self.toranj3_uRect is not None:
+        elif x is not None and y is not None and self.toranj1Rect is not None and self.toranj2Rect is not None and self.toranj3Rect is not None and self.toranj1_uRect is not None and self.toranj2_uRect is not None and self.toranj3_uRect is not None and self.startRect is not None:
            if self.toranj1_uRect.collidepoint(x, y):
                self.POVRSINA.blit (self.upgradeHover, self.toranj1_uRect)
            elif self.toranj2_uRect.collidepoint(x, y):
@@ -64,6 +66,8 @@ class sucelje(object):
                 self.POVRSINA.blit(hover, self.toranj2Rect)
            elif self.toranj3Rect.collidepoint(x, y):
                self.POVRSINA.blit(hover, self.toranj3Rect)
+           elif self.startRect.collidepoint(x, y):
+               self.POVRSINA.blit(self.ikonaStart_H, self.startRect)
     def odabraniToranj(self, x, y, odabrano):
         if self.toranj1Rect.collidepoint(x, y):
             self.POVRSINA.blit(odabrano, self.toranj1Rect)
@@ -118,7 +122,7 @@ class sucelje(object):
             return 'Lvl3'
         else:
             return None
-    def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3, toranj1_u, toranj2_u, toranj3_u, dmg1, dmg2, dmg3):
+    def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3, toranj1_u, toranj2_u, toranj3_u, dmg1, dmg2, dmg3, start):
         #obrub
         slikaRect = slikaObrub.get_rect()
         slikaRect.x = 640
@@ -157,6 +161,11 @@ class sucelje(object):
         self.POVRSINA.blit(slikaToranj3, self.toranj3Rect)
         lblDMG = self.fontDMG.render(str(dmg3), 1, (220, 0, 0))
         self.POVRSINA.blit(lblDMG, (640 + 30 + 94, 146 + 23))
+        #start ikona
+        self.startRect = start.get_rect()
+        self.startRect.x = 640 + 10
+        self.startRect.y = 480 - 38 - 10
+        self.POVRSINA.blit(start, self.startRect)
     def azurirajNovce (self, vrijednost):
         self.pare = self.pare + vrijednost
     def vratiNovce (sefl):
@@ -182,6 +191,11 @@ class sucelje(object):
     def kliknutoPobjeda(self, x, y):
         if self.ikonaGlavniRect.collidepoint(x, y):
             return 1
+    def kliknutoStart(self, x, y):
+        if self.startRect.collidepoint(x, y):
+            return 1
+        else:
+            return 0
     def hoverPobjeda(self, x, y):
         if self.ikonaGlavniRect.collidepoint(x, y):
             self.POVRSINA.blit(self.menuHover, self.ikonaGlavniRect)

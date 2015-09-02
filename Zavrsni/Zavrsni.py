@@ -42,6 +42,9 @@ toranj2_upgrade = pygame.image.load('grafika/tornjevi/toranj2_upgrade.png')
 toranj3_upgrade = pygame.image.load('grafika/tornjevi/toranj3_upgrade.png')
 toranj_upgrade_hover = pygame.image.load('grafika/tornjevi/toranj_upgrade_h.png')
 izgubljenoSlika = pygame.image.load('grafika/izgubljenLvl.png')
+ikonaStart = pygame.image.load('grafika/ikonaStart.png')
+ikonaStart_H = pygame.image.load('grafika/ikonaStart_H.png')
+
 #mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
@@ -88,13 +91,14 @@ def main ():
     dmg1 = 5
     dmg2 = 5
     dmg3 = 10
+    startKliknut = 0
 
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
     POVRSINA = pygame.display.set_mode((UkupnaVisina, SirinaProzora), 0, 32)
 
     lvlSeed = maestro()
-    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3, glavniMenu, predjenLabel, toranj_upgrade_hover)
+    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3, glavniMenu, predjenLabel, toranj_upgrade_hover, ikonaStart_H)
     mousex = 0
     mousey = 0
     pygame.display.set_caption('Zavrsni')
@@ -153,24 +157,25 @@ def main ():
         elif mod == modIgra:
             dmgLista = []
             lvl.crtajMrezu(POVRSINA, start, kraj)
-            if lvlSeed.vrijeme():
-                tip, brzina, HP = lvlSeed.vratiNeprijatelj()
-                if tip is not None:
-                    if tip == 1:
-                        ikona = ikonaNeprijatelj1
-                        dmgIkona = dmgikonaNeprijatelj1
-                    elif tip == 2:
-                        ikona = ikonaNeprijatelj2
-                        dmgIkona = dmgikonaNeprijatelj2
-                    elif tip == 3:
-                        ikona = ikonaNeprijatelj3
-                        dmgIkona = dmgikonaNeprijatelj3
+            if startKliknut:
+                if lvlSeed.vrijeme():
+                    tip, brzina, HP = lvlSeed.vratiNeprijatelj()
+                    if tip is not None:
+                        if tip == 1:
+                            ikona = ikonaNeprijatelj1
+                            dmgIkona = dmgikonaNeprijatelj1
+                        elif tip == 2:
+                            ikona = ikonaNeprijatelj2
+                            dmgIkona = dmgikonaNeprijatelj2
+                        elif tip == 3:
+                            ikona = ikonaNeprijatelj3
+                            dmgIkona = dmgikonaNeprijatelj3
+                        else:
+                            ikona = ikonaNeprijatelj4
+                            dmgIkona = dmgikonaNeprijatelj4
+                        listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, dmgIkona, HP))
                     else:
-                        ikona = ikonaNeprijatelj4
-                        dmgIkona = dmgikonaNeprijatelj4
-                    listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, dmgIkona, HP))
-                else:
-                    pocetak = 0
+                        pocetak = 0
             NeprijateljiRect = []
             GlZgrada.crtaj()
             for i in range (len(listaNeprijatelj)):
@@ -179,6 +184,7 @@ def main ():
                 NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
             
             if kliknuto:
+                startKliknut = UI.kliknutoStart(mousex, mousey)
                 lijevo, gore = UI.poljeNaPixelu(mousex, mousey)
                 if lijevo is None and gore is None:
                     odabraniToranj = UI.odabraniToranj(mousex, mousey, slikaOdabrano)
@@ -273,7 +279,7 @@ def main ():
                 dmg2 = 5
                 dmg3 = 10
                 lvlSeed.reset()
-            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, dmg1, dmg2, dmg3)
+            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, dmg1, dmg2, dmg3, ikonaStart)
         pygame.display.update()
         POVRSINA.fill((0,15,0))
         FPSCLOCK.tick(FPS)

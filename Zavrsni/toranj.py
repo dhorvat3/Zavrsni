@@ -39,12 +39,20 @@ class toranj(object):
         lijevo = boxx * trecinax
         gore = boxy * trecinay
         return(lijevo, gore)
+    def rot_center(self):
+        """rotate an image while keeping its center and size"""
+        orig_rect = self.ikona.get_rect()
+        rot_image = pygame.transform.rotate(self.ikona, -self.kut)
+        rot_rect = orig_rect.copy()
+        rot_rect.center = rot_image.get_rect().center
+        rot_image = rot_image.subsurface(rot_rect).copy()
+        return rot_image
     def Crtaj (self):
         lijevo, gore = self.lijevoGore(self.poljex, self.poljey)
-        self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey) + 10
-        self.ikonaRect.y = self.sirina/self.brojStupaca*(self.poljex) + 10
+        self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey)# + 10
+        self.ikonaRect.y = self.sirina/self.brojStupaca*(self.poljex)# + 10
         #self.POV.blit(self.ikona, self.ikonaRect)
-        self.POV.blit(pygame.transform.rotate(self.ikona, -self.kut), (self.ikonaRect.x, self.ikonaRect.y))
+        self.POV.blit(self.rot_center(), self.ikonaRect)
         self.DometTornja = self.ikonaRect.copy()
         self.DometTornja = self.DometTornja.inflate(self.domet, self.domet);
         #Crtanje kvadrata s alpha vrijednostima
