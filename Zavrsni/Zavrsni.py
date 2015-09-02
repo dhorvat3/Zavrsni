@@ -92,6 +92,7 @@ def main ():
     dmg2 = 5
     dmg3 = 10
     startKliknut = 0
+    startVrijeme = 1
 
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
@@ -119,21 +120,7 @@ def main ():
             if event.type == MOUSEBUTTONUP:
                 mousex, mousey = event.pos
                 kliknuto = True
-        if mod == modPobjeda:
-            if kliknuto:
-                if UI.kliknutoPobjeda(mousex, mousey):
-                    mod = modMenu
-            if not kliknuto:
-                UI.hoverPobjeda(mousex, mousey)
-            UI.CrtajPobjedu()
-        if mod == modIzgubljeno:
-            if kliknuto:
-                if UI.kliknutoPobjeda(mousex, mousey):
-                    mod = modMenu
-            if not kliknuto:
-                UI.hoverPobjeda(mousex, mousey)
-            UI.CrtajIzgubljeno(izgubljenoSlika)
-        elif mod == modMenu:
+        if mod == modMenu:
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
@@ -154,14 +141,33 @@ def main ():
             if not kliknuto:
                 UI.hoverGlavniMenu(mousex, mousey)
             UI.crtajGlavniMenu()
+        elif mod == modPobjeda:
+            if kliknuto:
+                if UI.kliknutoPobjeda(mousex, mousey):
+                    mod = modMenu
+            if not kliknuto:
+                UI.hoverPobjeda(mousex, mousey)
+            UI.CrtajPobjedu()
+        elif mod == modIzgubljeno:
+            if kliknuto:
+                if UI.kliknutoPobjeda(mousex, mousey):
+                    mod = modMenu
+            if not kliknuto:
+                UI.hoverPobjeda(mousex, mousey)
+            UI.CrtajIzgubljeno(izgubljenoSlika)
         elif mod == modIgra:
+            print ("Pocetak: ", startVrijeme)
+            print ("Start: ", startKliknut)
             dmgLista = []
             lvl.crtajMrezu(POVRSINA, start, kraj)
             if startKliknut:
-                if not pocetak:
+                if startVrijeme:
+                    startVrijeme = 0
+                    print ("Vrijeme")
                     lvlSeed.postaviVrijeme()
-                if lvlSeed.vrijeme():
+                elif lvlSeed.vrijeme():
                     tip, brzina, HP = lvlSeed.vratiNeprijatelj()
+                    print ("Tip: ", tip)
                     if tip is not None:
                         if tip == 1:
                             ikona = ikonaNeprijatelj1
@@ -180,13 +186,18 @@ def main ():
                         pocetak = 0
             NeprijateljiRect = []
             GlZgrada.crtaj()
-            for i in range (len(listaNeprijatelj)):
-                listaNeprijatelj[i].Pomakni()
-            for i in range (len(listaNeprijatelj)):
-                NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
-            
+            #for i in range (len(listaNeprijatelj)):
+            #    listaNeprijatelj[i].Pomakni()
+            #for i in range (len(listaNeprijatelj)):
+            #    NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
+            for i in listaNeprijatelj:
+                i.Pomakni()
+            for i in listaNeprijatelj:
+                NeprijateljiRect.append(i.ikonaRect)
+
             if kliknuto:
-                startKliknut = UI.kliknutoStart(mousex, mousey)
+                if not startKliknut:
+                    startKliknut = UI.kliknutoStart(mousex, mousey)
                 lijevo, gore = UI.poljeNaPixelu(mousex, mousey)
                 if lijevo is None and gore is None:
                     odabraniToranj = UI.odabraniToranj(mousex, mousey, slikaOdabrano)
@@ -269,6 +280,8 @@ def main ():
                 dmg2 = 5
                 dmg3 = 10
                 lvlSeed.reset()
+                startVrijeme = 1
+                startKliknut = 0
             if len(listaNeprijatelj) < 1 and pocetak == 0:
                 pocetak = 1
                 print ("Pobeda")
@@ -281,6 +294,8 @@ def main ():
                 dmg2 = 5
                 dmg3 = 10
                 lvlSeed.reset()
+                startVrijeme = 1
+                startKliknut = 0
             UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, dmg1, dmg2, dmg3, ikonaStart)
         pygame.display.update()
         POVRSINA.fill((0,15,0))

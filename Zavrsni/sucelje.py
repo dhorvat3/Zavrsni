@@ -194,8 +194,6 @@ class sucelje(object):
     def kliknutoStart(self, x, y):
         if self.startRect.collidepoint(x, y):
             return 1
-        else:
-            return 0
     def hoverPobjeda(self, x, y):
         if self.ikonaGlavniRect.collidepoint(x, y):
             self.POVRSINA.blit(self.menuHover, self.ikonaGlavniRect)

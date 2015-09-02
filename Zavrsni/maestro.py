@@ -39,6 +39,7 @@ class maestro(object):
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
         if trenutno - self.pocetno >= (self.razmak * (self.index + 1)):
+            print ("vrijeme ", trenutno - self.pocetno)
             self.pocetno = trenutno
             return 1
         else:
