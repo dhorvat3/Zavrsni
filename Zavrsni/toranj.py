@@ -5,7 +5,7 @@ from math import atan2, pi
 class toranj(object):
     """klasa za tornjeve
         ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
-    def __init__(self, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona):
+    def __init__(self, tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona):
         self.Aspeed = ASpeed
         self.poljex = poljex
         self.poljey = poljey
@@ -16,6 +16,7 @@ class toranj(object):
         self.sirina = Sirina
         self.brojRedova = len(self.grid)
         self.brojStupaca = len(self.grid[0])
+        self.tip = tip
         #self.ikona = pygame.Surface((self.visina/self.brojRedova - 20, self.sirina/self.brojStupaca - 20)).convert()
         #self.ikona.fill((20, 150, 30))
         self.ikonaRect = self.ikona.get_rect()
@@ -28,6 +29,10 @@ class toranj(object):
         self.pocetno = pygame.time.get_ticks()
         self.cooldown = vrijeme
         self.kut = 0
+    def vratiTip (self):
+        return self.tip
+    def upgradeDMG(self, iznos):
+        self.damage = self.damage + iznos
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
