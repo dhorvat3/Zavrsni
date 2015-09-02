@@ -10,6 +10,7 @@ class sucelje(object):
         self.mapa = None
         self.POVRSINA = POV
         self.font = pygame.font.SysFont("monospace", 15)
+        self.fontDMG = pygame.font.SysFont("tahoma", 10)
         self.pare = 0
         self.toranj1Rect = None
         self.toranj1_uRect = None
@@ -117,7 +118,7 @@ class sucelje(object):
             return 'Lvl3'
         else:
             return None
-    def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3, toranj1_u, toranj2_u, toranj3_u):
+    def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3, toranj1_u, toranj2_u, toranj3_u, dmg1, dmg2, dmg3):
         #obrub
         slikaRect = slikaObrub.get_rect()
         slikaRect.x = 640
@@ -132,6 +133,8 @@ class sucelje(object):
         self.toranj1Rect.x = 640 + 30
         self.toranj1Rect.y = 50
         self.POVRSINA.blit(slikaToranj1, self.toranj1Rect)
+        lblDMG = self.fontDMG.render(str(dmg1), 1, (220, 0, 0))
+        self.POVRSINA.blit(lblDMG, (640 + 30 + 94, 50 + 23))
         #toranj2
         self.toranj2_uRect = toranj2_u.get_rect()
         self.toranj2_uRect.x = 640 + 30 + 108 + 10
@@ -141,6 +144,8 @@ class sucelje(object):
         self.toranj2Rect.x = 640 + 30
         self.toranj2Rect.y = 98
         self.POVRSINA.blit(slikaToranj2, self.toranj2Rect)
+        lblDMG = self.fontDMG.render(str(dmg2), 1, (220, 0, 0))
+        self.POVRSINA.blit(lblDMG, (640 + 30 + 94, 98 + 23))
         #toranj3
         self.toranj3_uRect = toranj3_u.get_rect()
         self.toranj3_uRect.x = 640 + 30 + 108 + 10
@@ -150,6 +155,8 @@ class sucelje(object):
         self.toranj3Rect.x = 640 + 30
         self.toranj3Rect.y = 146
         self.POVRSINA.blit(slikaToranj3, self.toranj3Rect)
+        lblDMG = self.fontDMG.render(str(dmg3), 1, (220, 0, 0))
+        self.POVRSINA.blit(lblDMG, (640 + 30 + 94, 146 + 23))
     def azurirajNovce (self, vrijednost):
         self.pare = self.pare + vrijednost
     def vratiNovce (sefl):

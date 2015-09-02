@@ -273,7 +273,7 @@ def main ():
                 dmg2 = 5
                 dmg3 = 10
                 lvlSeed.reset()
-            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade)
+            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, dmg1, dmg2, dmg3)
         pygame.display.update()
         POVRSINA.fill((0,15,0))
         FPSCLOCK.tick(FPS)
