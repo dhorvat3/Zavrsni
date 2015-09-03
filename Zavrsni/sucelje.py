@@ -18,6 +18,7 @@ class sucelje(object):
         self.toranj2_uRect = None
         self.toranj3Rect = None
         self.toranj3_uRect = None
+        self.snajperRect = None
         self.startRect = None
         self.ikonaStart_H = startHover
         self.upgradeHover = upgradeHover
@@ -53,7 +54,15 @@ class sucelje(object):
         if poljex != None and poljey != None and self.mapa[poljey][poljex] != 'Z':
             lijevo, gore = self.lijevoGore(poljex, poljey)
             pygame.draw.rect(self.POVRSINA, (60,  60, 100), (lijevo, gore, self.visina/self.brojRedova, self.sirina/self.brojStupaca), 3)
-        elif x is not None and y is not None and self.toranj1Rect is not None and self.toranj2Rect is not None and self.toranj3Rect is not None and self.toranj1_uRect is not None and self.toranj2_uRect is not None and self.toranj3_uRect is not None and self.startRect is not None:
+        elif x is not None and y is not None \
+            and self.toranj1Rect is not None \
+            and self.toranj2Rect is not None \
+            and self.toranj3Rect is not None \
+            and self.toranj1_uRect is not None \
+            and self.toranj2_uRect is not None \
+            and self.toranj3_uRect is not None \
+            and self.startRect is not None \
+            and self.snajperRect is not None:
            if self.toranj1_uRect.collidepoint(x, y):
                self.POVRSINA.blit (self.upgradeHover, self.toranj1_uRect)
            elif self.toranj2_uRect.collidepoint(x, y):
@@ -66,6 +75,8 @@ class sucelje(object):
                 self.POVRSINA.blit(hover, self.toranj2Rect)
            elif self.toranj3Rect.collidepoint(x, y):
                self.POVRSINA.blit(hover, self.toranj3Rect)
+           elif self.snajperRect.collidepoint(x, y):
+               self.POVRSINA.blit(hover, self.snajperRect)
            elif self.startRect.collidepoint(x, y):
                self.POVRSINA.blit(self.ikonaStart_H, self.startRect)
     def odabraniToranj(self, x, y, odabrano):
@@ -78,6 +89,9 @@ class sucelje(object):
         if self.toranj3Rect.collidepoint(x, y):
             self.POVRSINA.blit(odabrano, self.toranj3Rect)
             return 'Toranj3'
+        if self.snajperRect.collidepoint(x, y):
+            self.POVRSINA.blit(odabrano, self.snajperRect)
+            return 'Toranj4'
     def odabraniUpgrade(self, x, y):
         if self.toranj1_uRect.collidepoint(x, y):
             self.POVRSINA.blit(self.upgradeHover, self.toranj1_uRect)
@@ -95,6 +109,8 @@ class sucelje(object):
             toranjRect = self.toranj2Rect
         if odabrano == 'Toranj3':
             toranjRect = self.toranj3Rect
+        if odabrano == 'Toranj4':
+            toranjRect = self.snajperRect
         self.POVRSINA.blit(slika, toranjRect)
     def crtajGlavniMenu(self):
         self.Lvl1Rect.x = 100
@@ -122,7 +138,7 @@ class sucelje(object):
             return 'Lvl3'
         else:
             return None
-    def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3, toranj1_u, toranj2_u, toranj3_u, dmg1, dmg2, dmg3, start):
+    def menu(self, slikaObrub, slikaToranj1, slikaToranj2, slikaToranj3, slikaSnajper, toranj1_u, toranj2_u, toranj3_u, dmg1, dmg2, dmg3, start):
         #obrub
         slikaRect = slikaObrub.get_rect()
         slikaRect.x = 640
@@ -146,7 +162,7 @@ class sucelje(object):
         self.POVRSINA.blit(toranj2_u, self.toranj2_uRect)
         self.toranj2Rect = slikaToranj2.get_rect()
         self.toranj2Rect.x = 640 + 30
-        self.toranj2Rect.y = 98
+        self.toranj2Rect.y = 50 + 48
         self.POVRSINA.blit(slikaToranj2, self.toranj2Rect)
         lblDMG = self.fontDMG.render(str(dmg2), 1, (220, 0, 0))
         self.POVRSINA.blit(lblDMG, (640 + 30 + 94, 98 + 23))
@@ -157,10 +173,15 @@ class sucelje(object):
         self.POVRSINA.blit(toranj3_u, self.toranj3_uRect)
         self.toranj3Rect = slikaToranj3.get_rect()
         self.toranj3Rect.x = 640 + 30
-        self.toranj3Rect.y = 146
+        self.toranj3Rect.y = 50 + 48 + 48
         self.POVRSINA.blit(slikaToranj3, self.toranj3Rect)
         lblDMG = self.fontDMG.render(str(dmg3), 1, (220, 0, 0))
         self.POVRSINA.blit(lblDMG, (640 + 30 + 94, 146 + 23))
+        #snajper
+        self.snajperRect = slikaSnajper.get_rect()
+        self.snajperRect.x = 640 + 30
+        self.snajperRect.y = 50 + 48 + 48 + 48
+        self.POVRSINA.blit(slikaSnajper, self.snajperRect)
         #start ikona
         self.startRect = start.get_rect()
         self.startRect.x = 640 + 10

@@ -24,9 +24,11 @@ glavnaZgrada = pygame.image.load('grafika\zgrada.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
 toranj2ikona = pygame.image.load('grafika/toranj2_ikona.png')
 toranj3ikona = pygame.image.load('grafika/toranj3_ikona.png')
+snajperikona = pygame.image.load('grafika/snajper_ikona.png')
 toranj1slika = pygame.image.load('grafika/tornjevi/toranj1.png')
 toranj2slika = pygame.image.load('grafika/tornjevi/toranj2.png')
 toranj3slika = pygame.image.load('grafika/tornjevi/toranj3.png')
+snajperslika = pygame.image.load('grafika/tornjevi/toranj4.png')
 #UI
 slikaHover = pygame.image.load('grafika/hover.png')
 slikaOdabrano = pygame.image.load('grafika/odabrano.png')
@@ -73,6 +75,7 @@ upgrade3 = 'Upgrade3'
 toranj1 = 'Toranj1'
 toranj2 = 'Toranj2'
 toranj3 = 'Toranj3'
+snajper = 'Toranj4'
 modMenu = 'menu'
 modIgra = 'igra'
 modPobjeda = 'Pobjeda'
@@ -90,6 +93,7 @@ def main ():
     dmg1 = 5
     dmg2 = 5
     dmg3 = 10
+    dmg4 = 100
     startKliknut = 0
     startVrijeme = 1
 
@@ -216,6 +220,7 @@ def main ():
                 if lijevo is None and gore is None:
                     odabraniToranj = UI.odabraniToranj(mousex, mousey, slikaOdabrano)
                     odabraniUpgrade = UI.odabraniUpgrade(mousex, mousey)
+                    #postavljanje parametara upgradeova
                     if odabraniUpgrade is not None:
                         if odabraniUpgrade == upgrade1:
                             if UI.vratiNovce() >= 10:
@@ -239,6 +244,7 @@ def main ():
                                     if i.vratiTip() == 3:
                                         i.upgradeDMG(1)
                 elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
+                    #stvaranje tornjeva
                     if odabraniToranj is not None:
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= 10:
@@ -255,6 +261,11 @@ def main ():
                                 grid[gore][lijevo] = T
                                 tornjevi.append(toranj(3, 4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg3, 2000, toranj3slika, pucanjZvuk))
                                 UI.azurirajNovce(-30)
+                        if odabraniToranj == snajper:
+                            if UI.vratiNovce() >= 50:
+                                grid[gore][lijevo] = T
+                                tornjevi.append(toranj(4, 50, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 500, dmg4, 10000, snajperslika, pucanjZvuk))
+                                UI.azurirajNovce(-50)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
                 if odabraniToranj == toranj1:
@@ -262,6 +273,8 @@ def main ():
                 if odabraniToranj == toranj2:
                     UI.pozadina(odabraniToranj, slikaOdabrano)
                 if odabraniToranj == toranj3:
+                    UI.pozadina(odabraniToranj, slikaOdabrano)
+                if odabraniToranj == snajper:
                     UI.pozadina(odabraniToranj, slikaOdabrano)
             for i in range (len(tornjevi)):
                 tornjevi[i - 1].Crtaj()
@@ -317,7 +330,7 @@ def main ():
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
-            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, dmg1, dmg2, dmg3, ikonaStart)
+            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona,toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, dmg1, dmg2, dmg3, ikonaStart)
         pygame.display.update()
         POVRSINA.fill((0,15,0))
         FPSCLOCK.tick(FPS)

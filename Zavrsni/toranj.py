@@ -4,7 +4,7 @@ from math import atan2, pi
 
 class toranj(object):
     """klasa za tornjeve
-        ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
+        tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
     def __init__(self, tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona, pucanj):
         self.Aspeed = ASpeed
         self.poljex = poljex
@@ -53,13 +53,23 @@ class toranj(object):
         self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey)# + 10
         self.ikonaRect.y = self.sirina/self.brojStupaca*(self.poljex)# + 10
         #self.POV.blit(self.ikona, self.ikonaRect)
-        self.POV.blit(self.rot_center(), self.ikonaRect)
+        if self.tip == 4:
+            self.POV.blit(self.ikona, self.ikonaRect)
+        else:
+            self.POV.blit(self.rot_center(), self.ikonaRect)
         self.DometTornja = self.ikonaRect.copy()
         self.DometTornja = self.DometTornja.inflate(self.domet, self.domet);
         #Crtanje kvadrata s alpha vrijednostima
         s = pygame.Surface((self.DometTornja.right - self.DometTornja.left, self.DometTornja.bottom - self.DometTornja.top))  # the size of your rect
-        s.set_alpha(70)                # alpha level
-        s.fill((84,48,15))           # this fills the entire surface
+        s.set_alpha(30)                # alpha level
+        if self.tip == 1:
+            s.fill((56,195,255))           # this fills the entire surface
+        elif self.tip == 2:
+            s.fill((143,255,70))
+        elif self.tip == 3:
+            s.fill((255,85,85))
+        elif self.tip == 4:
+            s.fill((251,36,173))
         self.POV.blit(s, (self.DometTornja.left,self.DometTornja.top))    # (0,0) are the top-left coordinates
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
@@ -82,6 +92,8 @@ class toranj(object):
         else:
             neprijatelj = None
         if self.index > -1 and neprijatelj is not None:
+            if self.tip == 4:
+                pygame.draw.line(self.POV, (255, 0, 0), self.ikonaRect.center, neprijatelj.center, 1)
             self.kut = atan2(neprijatelj.centery - self.ikonaRect.centery, neprijatelj.centerx - self.ikonaRect.centerx) / pi * 180
         if not self.projektil == []:
             for i in self.projektil[:]:
