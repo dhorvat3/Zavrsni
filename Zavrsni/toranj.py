@@ -4,7 +4,7 @@ from math import atan2, pi
 
 class toranj(object):
     """klasa za tornjeve
-        tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown"""
+        tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, cooldown, ikona, pucanj"""
     def __init__(self, tip, ASpeed, poljex, poljey, grid, POV, Visina, Sirina, domet, damage, vrijeme, ikona, pucanj):
         self.Aspeed = ASpeed
         self.poljex = poljex

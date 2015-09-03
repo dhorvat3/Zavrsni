@@ -10,7 +10,7 @@ Z S S S S S S Z Z Z
 Z Z Z Z Z Z Z Z S S
 2 0
 8 9
-4
+8
 100
 15
-5 4 3 2
+5 4 3 2 6 8 5 7

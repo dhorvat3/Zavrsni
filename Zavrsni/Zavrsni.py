@@ -13,13 +13,21 @@ from pygame.locals import QUIT, KEYUP, K_ESCAPE, MOUSEBUTTONUP, MOUSEMOTION
 #objekti igre
 metakIkona = pygame.image.load('grafika\metak.png')
 ikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelji/neprijatelj1_idle.png')
+ikonaNeprijatelj1a = pygame.image.load('grafika/neprijatelji/neprijatelj1a_idle.png')
 ikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelji/neprijatelj2_idle.png')
+ikonaNeprijatelj2a = pygame.image.load('grafika/neprijatelji/neprijatelj2a_idle.png')
 ikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelji/neprijatelj3_idle.png')
+ikonaNeprijatelj3a = pygame.image.load('grafika/neprijatelji/neprijatelj3a_idle.png')
 ikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelji/neprijatelj4_idle.png')
+ikonaNeprijatelj4a = pygame.image.load('grafika/neprijatelji/neprijatelj4a_idle.png')
 dmgikonaNeprijatelj1 = pygame.image.load('grafika/neprijatelji/neprijatelj1_dmg.png')
 dmgikonaNeprijatelj2 = pygame.image.load('grafika/neprijatelji/neprijatelj2_dmg.png')
 dmgikonaNeprijatelj3 = pygame.image.load('grafika/neprijatelji/neprijatelj3_dmg.png')
 dmgikonaNeprijatelj4 = pygame.image.load('grafika/neprijatelji/neprijatelj4_dmg.png')
+dmgikonaNeprijatelj1a = pygame.image.load('grafika/neprijatelji/neprijatelj1a_dmg.png')
+dmgikonaNeprijatelj2a = pygame.image.load('grafika/neprijatelji/neprijatelj2a_dmg.png')
+dmgikonaNeprijatelj3a = pygame.image.load('grafika/neprijatelji/neprijatelj3a_dmg.png')
+dmgikonaNeprijatelj4a = pygame.image.load('grafika/neprijatelji/neprijatelj4a_dmg.png')
 glavnaZgrada = pygame.image.load('grafika\zgrada.png')
 toranj1ikona = pygame.image.load('grafika/toranj1_ikona.png')
 toranj2ikona = pygame.image.load('grafika/toranj2_ikona.png')
@@ -101,7 +109,7 @@ def main ():
     dmg2 = 5
     dmg3 = 10
     dmg4 = 100
-    dmg5 = 20
+    dmg5 = 10
     startKliknut = 0
     startVrijeme = 1
 
@@ -189,22 +197,34 @@ def main ():
                     startVrijeme = 0
                     #print ("Vrijeme")
                     lvlSeed.postaviVrijeme()
+                #stvaranje neprijatelja
                 elif lvlSeed.vrijeme():
                     tip, brzina, HP = lvlSeed.vratiNeprijatelj()
-                    #print ("Tip: ", tip)
                     if tip is not None:
                         if tip == 1:
                             ikona = ikonaNeprijatelj1
                             dmgIkona = dmgikonaNeprijatelj1
                         elif tip == 2:
+                            ikona = ikonaNeprijatelj1a
+                            dmgIkona = dmgikonaNeprijatelj1a
+                        elif tip == 3:
                             ikona = ikonaNeprijatelj2
                             dmgIkona = dmgikonaNeprijatelj2
-                        elif tip == 3:
+                        elif tip == 4:
+                            ikona = ikonaNeprijatelj2a
+                            dmgIkona = dmgikonaNeprijatelj2a
+                        elif tip == 5:
                             ikona = ikonaNeprijatelj3
                             dmgIkona = dmgikonaNeprijatelj3
-                        else:
+                        elif tip == 6:
+                            ikona = ikonaNeprijatelj3a
+                            dmgIkona = dmgikonaNeprijatelj3a
+                        elif tip == 7:
                             ikona = ikonaNeprijatelj4
                             dmgIkona = dmgikonaNeprijatelj4
+                        else:
+                            ikona = ikonaNeprijatelj4a
+                            dmgIkona = dmgikonaNeprijatelj4a
                         listaNeprijatelj.append(neprijatelj(grid, VisinaProzora, SirinaProzora, start, kraj, POVRSINA, brzina, R, ikona, dmgIkona, HP, ouchZvuk))
                     else:
                         pocetak = 0
@@ -291,7 +311,8 @@ def main ():
                         if odabraniToranj == mitraljez:
                             if UI.vratiNovce() >= 50:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(5, 20, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 50, dmg5, 500, mitraljezslika, pucanjZvuk))
+                                tornjevi.append(toranj(5, 20, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 80, dmg5, 500, mitraljezslika, pucanjZvuk))
+                                UI.azurirajNovce(-50)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
                 if odabraniToranj == toranj1:
@@ -323,6 +344,7 @@ def main ():
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
+            #uvijeti kraja igre
             if GlZgrada.vratiHP()[0] <= 0:
                 pygame.mixer.music.fadeout(1000)
                 pygame.mixer.music.load('glazba/menu.ogg')

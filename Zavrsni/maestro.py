@@ -7,7 +7,7 @@ class maestro(object):
         self.seed = None
         self.index = 0
         self.pocetno = pygame.time.get_ticks()
-        self.razmak = 1000
+        self.razmak = 500
     def postaviVrijeme(self):
         self.pocetno = pygame.time.get_ticks()
     def lvlLoad(self, odabraniLvl):
@@ -17,6 +17,8 @@ class maestro(object):
         for red in redovi:
             self.Lvl.append(red.split())
         self.seed = self.Lvl[15]
+        #for i in self.seed:
+        #    i = int(i)
         for i in range(len(self.seed)):
             self.seed[i] = int(self.seed[i])
     def grid(self):
@@ -45,21 +47,29 @@ class maestro(object):
         else:
             return 0
     def vratiNeprijatelj(self):
-        if self.index > 3:
+        if self.index > self.brNeprijatelja() - 1:
             return None, None, None
         if self.seed[self.index] == 0:
             self.index = self.index + 1
-        if self.index > 3:
+        if self.index > self.brNeprijatelja() - 1:
             return None, None, None
         self.seed[self.index] = self.seed[self.index] - 1
         if self.index == 0:
-            return 1, 3, 30
+            return 1, 3, 10
         elif self.index == 1:
-            return 2, 2, 60
+            return 2, 2, 30
         elif self.index == 2:
-            return 3, 2, 80
+            return 3, 2, 50
         elif self.index == 3:
-            return 4, 1, 150
+            return 4, 1, 70
+        elif self.index == 4:
+            return 5, 2, 100
+        elif self.index == 5:
+            return 6, 3, 150
+        elif self.index == 6:
+            return 7, 2, 200
+        elif self.index == 7:
+            return 8, 3, 300
     def reset(self):
         self.Lvl = []
         self.seed = None
