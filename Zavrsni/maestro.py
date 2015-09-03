@@ -41,7 +41,7 @@ class maestro(object):
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
         if trenutno - self.pocetno >= (self.razmak * (self.index + 1)):
-            print ("vrijeme ", trenutno - self.pocetno)
+            #print ("vrijeme ", trenutno - self.pocetno)
             self.pocetno = trenutno
             return 1
         else:
@@ -54,22 +54,23 @@ class maestro(object):
         if self.index > self.brNeprijatelja() - 1:
             return None, None, None
         self.seed[self.index] = self.seed[self.index] - 1
+        #return tip, mov speed, HP
         if self.index == 0:
-            return 1, 3, 10
+            return 1, 4, 10
         elif self.index == 1:
-            return 2, 2, 30
+            return 2, 3, 20
         elif self.index == 2:
-            return 3, 2, 50
+            return 3, 3, 50
         elif self.index == 3:
-            return 4, 1, 70
+            return 4, 3, 100
         elif self.index == 4:
-            return 5, 2, 100
+            return 5, 2, 130
         elif self.index == 5:
-            return 6, 3, 150
+            return 6, 2, 180
         elif self.index == 6:
-            return 7, 2, 200
+            return 7, 2, 350
         elif self.index == 7:
-            return 8, 3, 300
+            return 8, 1, 450
     def reset(self):
         self.Lvl = []
         self.seed = None

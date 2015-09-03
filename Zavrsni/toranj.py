@@ -99,7 +99,7 @@ class toranj(object):
             for i in self.projektil[:]:
                 status = i.Pomak(listaNeprijatelja)
                 if status > -1:
-                    print ("Status: ", status)
+                    #print ("Status: ", status)
                     self.projektil.remove(i)
                     dmgLista.append([status, self.damage])
                 elif status == -2:

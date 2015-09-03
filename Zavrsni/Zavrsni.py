@@ -105,11 +105,38 @@ startGold = None
 def main ():
     global FPSCLOCK, POVRSINA;
 
+    #varijable tornjeva
+    #toranj1
     dmg1 = 5
+    domet1 = 100
+    brzinaP1 = 10
+    cijena1 = 10
+    cijenau1 = 5
+    #toranj2
     dmg2 = 5
+    domet2 = 200
+    brzinaP2 = 10
+    cijena2 = 20
+    cijenau2 = 5
+    #toranj3
     dmg3 = 10
+    domet3 = 200
+    brzinaP3 = 15
+    cijena3 = 30
+    cijenau3 = 10
+    #snajper
     dmg4 = 100
+    domet4 = 500
+    brzinaP4 = 50
+    cijena4 = 100
+    cijenau4 = 30
+    #mitraljez
     dmg5 = 10
+    domet5 = 80
+    brzinaP5 = 20
+    cijena5 = 100
+    cijenau5 = 50
+
     startKliknut = 0
     startVrijeme = 1
 
@@ -251,37 +278,37 @@ def main ():
                     #postavljanje parametara upgradeova
                     if odabraniUpgrade is not None:
                         if odabraniUpgrade == upgrade1:
-                            if UI.vratiNovce() >= 10:
+                            if UI.vratiNovce() >= cijenau1:
                                 dmg1 = dmg1 + 1
-                                UI.azurirajNovce(-10)
+                                UI.azurirajNovce(-cijenau1)
                                 for i in tornjevi:
                                     if i.vratiTip() == 1:
                                         i.upgradeDMG(1)
                         if odabraniUpgrade == upgrade2:
-                            if UI.vratiNovce() >= 10:
+                            if UI.vratiNovce() >= cijenau2:
                                 dmg2 = dmg2 + 1
-                                UI.azurirajNovce(-10)
+                                UI.azurirajNovce(-cijenau2)
                                 for i in tornjevi:
                                     if i.vratiTip() == 2:
                                         i.upgradeDMG(1)
                         if odabraniUpgrade == upgrade3:
-                            if UI.vratiNovce() >= 10:
+                            if UI.vratiNovce() >= cijenau3:
                                 dmg3 = dmg3 + 1
-                                UI.azurirajNovce(-10)
+                                UI.azurirajNovce(-cijenau3)
                                 for i in tornjevi:
                                     if i.vratiTip() == 3:
                                         i.upgradeDMG(1)
                         if odabraniUpgrade == upgrade4:
-                            if UI.vratiNovce() >= 10:
+                            if UI.vratiNovce() >= cijenau4:
                                 dmg4 = dmg4 + 1
-                                UI.azurirajNovce(-10)
+                                UI.azurirajNovce(-cijenau4)
                                 for i in tornjevi:
                                     if i.vratiTip() == 4:
                                         i.upgradeDMG(1)
                         if odabraniUpgrade == upgrade5:
-                            if UI.vratiNovce() >= 10:
+                            if UI.vratiNovce() >= cijenau5:
                                 dmg5 = dmg5 + 1
-                                UI.azurirajNovce(-10)
+                                UI.azurirajNovce(-cijenau5)
                                 for i in tornjevi:
                                     if i.vratiTip() == 5:
                                         i.upgradeDMG(1) 
@@ -289,30 +316,30 @@ def main ():
                     #stvaranje tornjeva
                     if odabraniToranj is not None:
                         if odabraniToranj == toranj1:
-                            if UI.vratiNovce() >= 10:
+                            if UI.vratiNovce() >= cijena1:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(1, 3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 100, dmg1, 2000, toranj1slika, pucanjZvuk))
-                                UI.azurirajNovce(-10)
+                                tornjevi.append(toranj(1, brzinaP1, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet1, dmg1, 2000, toranj1slika, pucanjZvuk))
+                                UI.azurirajNovce(-cijena1)
                         if odabraniToranj == toranj2:
-                            if UI.vratiNovce() >= 20:
+                            if UI.vratiNovce() >= cijena2:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(2, 3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg2, 2000, toranj2slika, pucanjZvuk))
-                                UI.azurirajNovce(-20)
+                                tornjevi.append(toranj(2, brzinaP2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet2, dmg2, 2000, toranj2slika, pucanjZvuk))
+                                UI.azurirajNovce(-cijena2)
                         if odabraniToranj == toranj3:
-                            if UI.vratiNovce() >= 30:
+                            if UI.vratiNovce() >= cijena3:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(3, 4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 200, dmg3, 2000, toranj3slika, pucanjZvuk))
-                                UI.azurirajNovce(-30)
+                                tornjevi.append(toranj(3, brzinaP3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet3, dmg3, 2000, toranj3slika, pucanjZvuk))
+                                UI.azurirajNovce(-cijena3)
                         if odabraniToranj == snajper:
-                            if UI.vratiNovce() >= 50:
+                            if UI.vratiNovce() >= cijena4:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(4, 50, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 500, dmg4, 10000, snajperslika, pucanjZvuk))
-                                UI.azurirajNovce(-50)
+                                tornjevi.append(toranj(4, brzinaP4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet4, dmg4, 7000, snajperslika, pucanjZvuk))
+                                UI.azurirajNovce(-cijena4)
                         if odabraniToranj == mitraljez:
-                            if UI.vratiNovce() >= 50:
+                            if UI.vratiNovce() >= cijena5:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(5, 20, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, 80, dmg5, 500, mitraljezslika, pucanjZvuk))
-                                UI.azurirajNovce(-50)
+                                tornjevi.append(toranj(5, brzinaP5, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet5, dmg5, 500, mitraljezslika, pucanjZvuk))
+                                UI.azurirajNovce(-cijena5)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
                 if odabraniToranj == toranj1:
@@ -332,7 +359,7 @@ def main ():
                 for j in dmgLista:
                     for i in j:
                         if i[0] > -1 and listaNeprijatelj:
-                            print("Indeks: ", i[0], " damage: ", i[1])
+                            #print("Indeks: ", i[0], " damage: ", i[1])
                             listaNeprijatelj[i[0]].damage(i[1])
                             if listaNeprijatelj[i[0]].vratiHP() < 1:
                                 smrtZvuk.play(0)
@@ -340,7 +367,7 @@ def main ():
                                 listaNeprijatelj.remove(listaNeprijatelj[i[0]])
             indekas = GlZgrada.damage(NeprijateljiRect)
             if indekas > -1:
-                print ("Damage: ", indekas)
+                #print ("Damage: ", indekas)
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
@@ -381,7 +408,12 @@ def main ():
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
-            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, dmg1, dmg2, dmg3, dmg4, dmg5, ikonaStart)
+            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
+                toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, \
+                dmg1, dmg2, dmg3, dmg4, dmg5, \
+                domet1, domet2, domet3, domet4, domet5, \
+                cijena1, cijena2, cijena3, cijena4, cijena5, \
+                cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, ikonaStart)
         pygame.display.update()
         POVRSINA.fill((0,15,0))
         FPSCLOCK.tick(FPS)
