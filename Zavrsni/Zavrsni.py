@@ -107,32 +107,37 @@ def main ():
 
     #varijable tornjeva
     #toranj1
-    dmg1 = 5
+    dmg1 = 10
     domet1 = 100
-    brzinaP1 = 10
+    ASpeed1 = 700
+    brzinaP1 = 15
     cijena1 = 10
     cijenau1 = 5
     #toranj2
-    dmg2 = 5
+    dmg2 = 10
     domet2 = 200
-    brzinaP2 = 10
+    ASpeed2 = 900
+    brzinaP2 = 15
     cijena2 = 20
     cijenau2 = 5
     #toranj3
-    dmg3 = 10
+    dmg3 = 20
     domet3 = 200
-    brzinaP3 = 15
-    cijena3 = 30
+    ASpeed3 = 900
+    brzinaP3 = 20
+    cijena3 = 50
     cijenau3 = 10
     #snajper
     dmg4 = 100
     domet4 = 500
-    brzinaP4 = 50
+    ASpeed4 = 7000
+    brzinaP4 = 40
     cijena4 = 100
     cijenau4 = 30
     #mitraljez
-    dmg5 = 10
-    domet5 = 80
+    dmg5 = 5
+    domet5 = 90
+    ASpeed5 = 333
     brzinaP5 = 20
     cijena5 = 100
     cijenau5 = 50
@@ -281,6 +286,7 @@ def main ():
                             if UI.vratiNovce() >= cijenau1:
                                 dmg1 = dmg1 + 1
                                 UI.azurirajNovce(-cijenau1)
+                                cijenau1 = cijenau1 + 1
                                 for i in tornjevi:
                                     if i.vratiTip() == 1:
                                         i.upgradeDMG(1)
@@ -288,6 +294,7 @@ def main ():
                             if UI.vratiNovce() >= cijenau2:
                                 dmg2 = dmg2 + 1
                                 UI.azurirajNovce(-cijenau2)
+                                cijenau2 = cijenau2 + 1
                                 for i in tornjevi:
                                     if i.vratiTip() == 2:
                                         i.upgradeDMG(1)
@@ -295,50 +302,53 @@ def main ():
                             if UI.vratiNovce() >= cijenau3:
                                 dmg3 = dmg3 + 1
                                 UI.azurirajNovce(-cijenau3)
+                                cijenau3 = cijenau3 + 1
                                 for i in tornjevi:
                                     if i.vratiTip() == 3:
                                         i.upgradeDMG(1)
                         if odabraniUpgrade == upgrade4:
                             if UI.vratiNovce() >= cijenau4:
-                                dmg4 = dmg4 + 1
+                                dmg4 = dmg4 + 50
                                 UI.azurirajNovce(-cijenau4)
+                                cijenau4 = cijenau4 + 3
                                 for i in tornjevi:
                                     if i.vratiTip() == 4:
-                                        i.upgradeDMG(1)
+                                        i.upgradeDMG(50)
                         if odabraniUpgrade == upgrade5:
                             if UI.vratiNovce() >= cijenau5:
-                                dmg5 = dmg5 + 1
+                                dmg5 = dmg5 + 2
                                 UI.azurirajNovce(-cijenau5)
+                                cijenau5 = cijenau5 + 5
                                 for i in tornjevi:
                                     if i.vratiTip() == 5:
-                                        i.upgradeDMG(1) 
+                                        i.upgradeDMG(2) 
                 elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
                     #stvaranje tornjeva
                     if odabraniToranj is not None:
                         if odabraniToranj == toranj1:
                             if UI.vratiNovce() >= cijena1:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(1, brzinaP1, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet1, dmg1, 2000, toranj1slika, pucanjZvuk))
+                                tornjevi.append(toranj(1, brzinaP1, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet1, dmg1, ASpeed1, toranj1slika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena1)
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= cijena2:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(2, brzinaP2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet2, dmg2, 2000, toranj2slika, pucanjZvuk))
+                                tornjevi.append(toranj(2, brzinaP2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet2, dmg2, ASpeed2, toranj2slika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena2)
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= cijena3:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(3, brzinaP3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet3, dmg3, 2000, toranj3slika, pucanjZvuk))
+                                tornjevi.append(toranj(3, brzinaP3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet3, dmg3, ASpeed3, toranj3slika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena3)
                         if odabraniToranj == snajper:
                             if UI.vratiNovce() >= cijena4:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(4, brzinaP4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet4, dmg4, 7000, snajperslika, pucanjZvuk))
+                                tornjevi.append(toranj(4, brzinaP4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet4, dmg4, ASpeed4, snajperslika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena4)
                         if odabraniToranj == mitraljez:
                             if UI.vratiNovce() >= cijena5:
                                 grid[gore][lijevo] = T
-                                tornjevi.append(toranj(5, brzinaP5, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet5, dmg5, 500, mitraljezslika, pucanjZvuk))
+                                tornjevi.append(toranj(5, brzinaP5, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet5, dmg5, ASpeed5, mitraljezslika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena5)
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
@@ -388,6 +398,12 @@ def main ():
                 dmg2 = 5
                 dmg3 = 10
                 dmg4 = 100
+                dmg5 = 5
+                cijenau1 = 5
+                cijenau2 = 5
+                cijenau3 = 10
+                cijenau4 = 30
+                cijenau5 = 50
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
@@ -405,6 +421,13 @@ def main ():
                 dmg1 = 5
                 dmg2 = 5
                 dmg3 = 10
+                dmg4 = 100
+                dmg5 = 5
+                cijenau1 = 5
+                cijenau2 = 5
+                cijenau3 = 10
+                cijenau4 = 30
+                cijenau5 = 50
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
