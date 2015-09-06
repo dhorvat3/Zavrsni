@@ -105,43 +105,6 @@ startGold = None
 def main ():
     global FPSCLOCK, POVRSINA;
 
-    #varijable tornjeva
-    #toranj1
-    dmg1 = 10
-    domet1 = 100
-    ASpeed1 = 700
-    brzinaP1 = 15
-    cijena1 = 10
-    cijenau1 = 5
-    #toranj2
-    dmg2 = 10
-    domet2 = 200
-    ASpeed2 = 900
-    brzinaP2 = 15
-    cijena2 = 20
-    cijenau2 = 5
-    #toranj3
-    dmg3 = 20
-    domet3 = 200
-    ASpeed3 = 900
-    brzinaP3 = 20
-    cijena3 = 50
-    cijenau3 = 10
-    #snajper
-    dmg4 = 100
-    domet4 = 500
-    ASpeed4 = 7000
-    brzinaP4 = 40
-    cijena4 = 100
-    cijenau4 = 30
-    #mitraljez
-    dmg5 = 5
-    domet5 = 90
-    ASpeed5 = 333
-    brzinaP5 = 20
-    cijena5 = 100
-    cijenau5 = 50
-
     startKliknut = 0
     startVrijeme = 1
 
@@ -181,6 +144,42 @@ def main ():
                 mousex, mousey = event.pos
                 kliknuto = True
         if mod == modMenu:
+            #varijable tornjeva
+            #Tetejac
+            dmg1 = 10
+            domet1 = 100
+            ASpeed1 = 700
+            brzinaP1 = 15
+            cijena1 = 10
+            cijenau1 = 5
+            #Kalašnjikov
+            dmg2 = 15
+            domet2 = 200
+            ASpeed2 = 900
+            brzinaP2 = 15
+            cijena2 = 20
+            cijenau2 = 5
+            #Karabin
+            dmg3 = 20
+            domet3 = 200
+            ASpeed3 = 900
+            brzinaP3 = 20
+            cijena3 = 50
+            cijenau3 = 10
+            #snajper
+            dmg4 = 100
+            domet4 = 500
+            ASpeed4 = 7000
+            brzinaP4 = 40
+            cijena4 = 100
+            cijenau4 = 30
+            #mitraljez
+            dmg5 = 5
+            domet5 = 90
+            ASpeed5 = 333
+            brzinaP5 = 20
+            cijena5 = 100
+            cijenau5 = 50
             if kliknuto:
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
@@ -330,26 +329,31 @@ def main ():
                                 grid[gore][lijevo] = T
                                 tornjevi.append(toranj(1, brzinaP1, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet1, dmg1, ASpeed1, toranj1slika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena1)
+                                cijena1 = cijena1 + 10
                         if odabraniToranj == toranj2:
                             if UI.vratiNovce() >= cijena2:
                                 grid[gore][lijevo] = T
                                 tornjevi.append(toranj(2, brzinaP2, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet2, dmg2, ASpeed2, toranj2slika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena2)
+                                cijena2 = cijena2 + 10
                         if odabraniToranj == toranj3:
                             if UI.vratiNovce() >= cijena3:
                                 grid[gore][lijevo] = T
                                 tornjevi.append(toranj(3, brzinaP3, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet3, dmg3, ASpeed3, toranj3slika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena3)
+                                cijena3 = cijena3 + 10
                         if odabraniToranj == snajper:
                             if UI.vratiNovce() >= cijena4:
                                 grid[gore][lijevo] = T
                                 tornjevi.append(toranj(4, brzinaP4, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet4, dmg4, ASpeed4, snajperslika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena4)
+                                cijena4 = cijena4 + 20
                         if odabraniToranj == mitraljez:
                             if UI.vratiNovce() >= cijena5:
                                 grid[gore][lijevo] = T
                                 tornjevi.append(toranj(5, brzinaP5, gore, lijevo, grid, POVRSINA, VisinaProzora, SirinaProzora, domet5, dmg5, ASpeed5, mitraljezslika, pucanjZvuk))
                                 UI.azurirajNovce(-cijena5)
+                                cijena5 = cijena5 + 20
             if not kliknuto:
                 UI.crtajObrub(mousex, mousey, slikaHover)
                 if odabraniToranj == toranj1:
@@ -394,16 +398,6 @@ def main ():
                 grid = []
                 lvlSeed.obrisiLvl()
                 UI.postaviNovce(0)
-                dmg1 = 5
-                dmg2 = 5
-                dmg3 = 10
-                dmg4 = 100
-                dmg5 = 5
-                cijenau1 = 5
-                cijenau2 = 5
-                cijenau3 = 10
-                cijenau4 = 30
-                cijenau5 = 50
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
@@ -412,22 +406,12 @@ def main ():
                 pygame.mixer.music.load('glazba/menu.ogg')
                 pygame.mixer.music.play(-1, 0.0)
                 pocetak = 1
-                print ("Pobeda")
+                print ("Pobjeda")
                 mod = modPobjeda
                 odabraniLvl = None
                 grid = []
                 lvlSeed.obrisiLvl()
                 UI.postaviNovce(0)
-                dmg1 = 5
-                dmg2 = 5
-                dmg3 = 10
-                dmg4 = 100
-                dmg5 = 5
-                cijenau1 = 5
-                cijenau2 = 5
-                cijenau3 = 10
-                cijenau4 = 30
-                cijenau5 = 50
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
