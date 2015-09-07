@@ -58,6 +58,8 @@ toranj_upgrade_hover = pygame.image.load('grafika/tornjevi/toranj_upgrade_h.png'
 izgubljenoSlika = pygame.image.load('grafika/izgubljenLvl.png')
 ikonaStart = pygame.image.load('grafika/ikonaStart.png')
 ikonaStart_H = pygame.image.load('grafika/ikonaStart_H.png')
+pozadina = pygame.image.load('grafika/pozadina.png')
+naslov = pygame.image.load('grafika/naslov.png')
 #mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
@@ -144,6 +146,7 @@ def main ():
                 mousex, mousey = event.pos
                 kliknuto = True
         if mod == modMenu:
+            POVRSINA.blit(naslov, ((0, 0), (840, 480)))
             #varijable tornjeva
             #Tetejac
             dmg1 = 10
@@ -219,6 +222,12 @@ def main ():
                 UI.hoverPobjeda(mousex, mousey)
             UI.CrtajIzgubljeno(izgubljenoSlika)
         elif mod == modIgra:
+            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
+                toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, \
+                dmg1, dmg2, dmg3, dmg4, dmg5, \
+                domet1, domet2, domet3, domet4, domet5, \
+                cijena1, cijena2, cijena3, cijena4, cijena5, \
+                cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, ikonaStart)
             #print ("Pocetak: ", startVrijeme)
             #print ("Start: ", startKliknut)
             dmgLista = []
@@ -415,14 +424,15 @@ def main ():
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
-            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
-                toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, \
-                dmg1, dmg2, dmg3, dmg4, dmg5, \
-                domet1, domet2, domet3, domet4, domet5, \
-                cijena1, cijena2, cijena3, cijena4, cijena5, \
-                cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, ikonaStart)
+            #UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
+            #    toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, \
+            #    dmg1, dmg2, dmg3, dmg4, dmg5, \
+            #    domet1, domet2, domet3, domet4, domet5, \
+            #    cijena1, cijena2, cijena3, cijena4, cijena5, \
+            #    cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, ikonaStart)
         pygame.display.update()
-        POVRSINA.fill((0,15,0))
+        #POVRSINA.fill((0,15,0))
+        POVRSINA.blit(pozadina, ((0, 0), (840, 480)))
         FPSCLOCK.tick(FPS)
 
 if __name__ == '__main__':

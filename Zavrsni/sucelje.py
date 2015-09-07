@@ -137,11 +137,11 @@ class sucelje(object):
         self.POVRSINA.blit(slika, toranjRect)
     def crtajGlavniMenu(self):
         self.Lvl1Rect.x = 100
-        self.Lvl1Rect.y = 50
+        self.Lvl1Rect.y = 200
         self.Lvl2Rect.x = 100
-        self.Lvl2Rect.y = 50 + 70 + 20
+        self.Lvl2Rect.y = 200 + 70 + 20
         self.Lvl3Rect.x = 100
-        self.Lvl3Rect.y = 50 + 70 + 20 + 70 + 20
+        self.Lvl3Rect.y = 200 + 70 + 20 + 70 + 20
         self.POVRSINA.blit(self.menuLvl1, self.Lvl1Rect)
         self.POVRSINA.blit(self.menuLvl2, self.Lvl2Rect)
         self.POVRSINA.blit(self.menuLvl3, self.Lvl3Rect)
