@@ -17,8 +17,6 @@ class maestro(object):
         for red in redovi:
             self.Lvl.append(red.split())
         self.seed = self.Lvl[15]
-        #for i in self.seed:
-        #    i = int(i)
         for i in range(len(self.seed)):
             self.seed[i] = int(self.seed[i])
     def grid(self):
@@ -36,8 +34,6 @@ class maestro(object):
         return int(self.Lvl[13][0])
     def zgradaHP(self):
         return int(self.Lvl[14][0])
-    def obrisiLvl(self):
-        self.Lvl = []
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
         if self.index > 2:
@@ -48,7 +44,6 @@ class maestro(object):
                 return 0
         else:
             if trenutno - self.pocetno >= (self.razmak * (self.index + 1)):
-                #print ("vrijeme ", trenutno - self.pocetno)
                 self.pocetno = trenutno
                 return 1
             else:

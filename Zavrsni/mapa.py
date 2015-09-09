@@ -49,7 +49,6 @@ class Mapa(object):
                     self.okolisRect.x = dimX * j
                     self.okolisRect.y = dimY * i
                     POV.blit(self.okolis, self.okolisRect)
-                    #pygame.draw.rect(POV, (255, 15, 0), (dimX * j, dimY * i, dimX, dimY), 1)
                 else:
                     self.putRect.x = dimX * j
                     self.putRect.y = dimY * i

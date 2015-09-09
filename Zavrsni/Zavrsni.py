@@ -1,7 +1,6 @@
 ﻿#Glavna klasa
 import pygame
 import sys
-#from random import randrange
 from mapa import Mapa
 from neprijatelj import neprijatelj
 from sucelje import sucelje
@@ -132,7 +131,6 @@ def main ():
     odabraniUpgrade = None
     odabraniLvl = None
     mod = modMenu
-    signal = 0
     pocetak = 1
     listaNeprijatelj = []
     while True:
@@ -232,6 +230,7 @@ def main ():
             #print ("Start: ", startKliknut)
             dmgLista = []
             lvl.crtajMrezu(POVRSINA, start, kraj)
+            #neprijatelji
             if startKliknut:
                 if startVrijeme:
                     startVrijeme = 0
@@ -275,16 +274,12 @@ def main ():
                 listaNeprijatelj[i].Pomakni()
             for i in range (len(listaNeprijatelj)):
                 NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
-
-            #for i in listaNeprijatelj:
-            #    i.Pomakni()
-            #for i in listaNeprijatelj:
-            #    NeprijateljiRect.append(i.ikonaRect)
-
+            #Gradnja
             if kliknuto:
                 if not startKliknut:
                     startKliknut = UI.kliknutoStart(mousex, mousey)
                 lijevo, gore = UI.poljeNaPixelu(mousex, mousey)
+                #gradnja upgradea
                 if lijevo is None and gore is None:
                     odabraniToranj = UI.odabraniToranj(mousex, mousey, slikaOdabrano)
                     odabraniUpgrade = UI.odabraniUpgrade(mousex, mousey)
@@ -330,6 +325,7 @@ def main ():
                                 for i in tornjevi:
                                     if i.vratiTip() == 5:
                                         i.upgradeDMG(2) 
+                #gradnja tornja
                 elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
                     #stvaranje tornjeva
                     if odabraniToranj is not None:
@@ -375,6 +371,7 @@ def main ():
                     UI.pozadina(odabraniToranj, slikaOdabrano)
                 if odabraniToranj == mitraljez:
                     UI.pozadina(odabraniToranj, slikaOdabrano)
+            #Damage
             for i in range (len(tornjevi)):
                 tornjevi[i - 1].Crtaj()
                 dmgLista.append(tornjevi[i - 1].Ciljanje(NeprijateljiRect, metakIkona))
@@ -382,7 +379,6 @@ def main ():
                 for j in dmgLista:
                     for i in j:
                         if i[0] > -1 and listaNeprijatelj:
-                            #print("Indeks: ", i[0], " damage: ", i[1])
                             listaNeprijatelj[i[0]].damage(i[1])
                             if listaNeprijatelj[i[0]].vratiHP() < 1:
                                 smrtZvuk.play(0)
@@ -390,48 +386,29 @@ def main ():
                                 listaNeprijatelj.remove(listaNeprijatelj[i[0]])
             indekas = GlZgrada.damage(NeprijateljiRect)
             if indekas > -1:
-                #print ("Damage: ", indekas)
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
             UI.ispisStanja(GlZgrada.vratiHP())
             #uvijeti kraja igre
-            if GlZgrada.vratiHP()[0] <= 0:
+            if GlZgrada.vratiHP()[0] <= 0 or (len(listaNeprijatelj) < 1 and pocetak == 0):
                 pygame.mixer.music.fadeout(1000)
                 pygame.mixer.music.load('glazba/menu.ogg')
                 pygame.mixer.music.play()
                 pocetak = 1
-                print("Izgubljeno")
-                mod = modIzgubljeno
+                if GlZgrada.vratiHP()[0] <= 0:
+                    print("Izgubljeno")
+                    mod = modIzgubljeno
+                else:
+                    print("Pobjeda")
+                    mod = modPobjeda
                 odabraniLvl = None
                 listaNeprijatelj = []
                 grid = []
-                lvlSeed.obrisiLvl()
                 UI.postaviNovce(0)
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
-            if len(listaNeprijatelj) < 1 and pocetak == 0:
-                pygame.mixer.music.fadeout(1000)
-                pygame.mixer.music.load('glazba/menu.ogg')
-                pygame.mixer.music.play(-1, 0.0)
-                pocetak = 1
-                print ("Pobjeda")
-                mod = modPobjeda
-                odabraniLvl = None
-                grid = []
-                lvlSeed.obrisiLvl()
-                UI.postaviNovce(0)
-                lvlSeed.reset()
-                startVrijeme = 1
-                startKliknut = 0
-            #UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
-            #    toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, \
-            #    dmg1, dmg2, dmg3, dmg4, dmg5, \
-            #    domet1, domet2, domet3, domet4, domet5, \
-            #    cijena1, cijena2, cijena3, cijena4, cijena5, \
-            #    cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, ikonaStart)
         pygame.display.update()
-        #POVRSINA.fill((0,15,0))
         POVRSINA.blit(pozadina, ((0, 0), (840, 480)))
         FPSCLOCK.tick(FPS)
 

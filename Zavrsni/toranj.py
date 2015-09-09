@@ -17,12 +17,9 @@ class toranj(object):
         self.brojRedova = len(self.grid)
         self.brojStupaca = len(self.grid[0])
         self.tip = tip
-        #self.ikona = pygame.Surface((self.visina/self.brojRedova - 20, self.sirina/self.brojStupaca - 20)).convert()
-        #self.ikona.fill((20, 150, 30))
         self.ikonaRect = self.ikona.get_rect()
         self.domet = domet
         self.damage = damage
-        #self.projektil = None
         self.projektil = []
         self.DometTornja = None
         self.index = -1
@@ -52,7 +49,6 @@ class toranj(object):
         lijevo, gore = self.lijevoGore(self.poljex, self.poljey)
         self.ikonaRect.x = self.visina/self.brojRedova*(self.poljey)# + 10
         self.ikonaRect.y = self.sirina/self.brojStupaca*(self.poljex)# + 10
-        #self.POV.blit(self.ikona, self.ikonaRect)
         if self.tip == 4:
             self.POV.blit(self.ikona, self.ikonaRect)
         else:
