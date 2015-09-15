@@ -59,6 +59,8 @@ ikonaStart = pygame.image.load('grafika/ikonaStart.png')
 ikonaStart_H = pygame.image.load('grafika/ikonaStart_H.png')
 pozadina = pygame.image.load('grafika/pozadina.png')
 naslov = pygame.image.load('grafika/naslov.png')
+audioON = pygame.image.load('grafika/audio_on.png')
+audioOFF = pygame.image.load('grafika/audio_off.png')
 #mapa
 okolis = pygame.image.load('grafika/mapa/trava_okolis.png')
 put_ravno = pygame.image.load('grafika/mapa/put_ravno.png')
@@ -133,11 +135,14 @@ def main ():
     mod = modMenu
     pocetak = 1
     listaNeprijatelj = []
-    while True:
+    izvrsavaj = True
+    audio = True
+    while izvrsavaj:
         kliknuto = False
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
-                pygame.quit()
+                #pygame.quit()
+                izvrsavaj = False
             if event.type == MOUSEMOTION:
                 mousex, mousey = event.pos
             if event.type == MOUSEBUTTONUP:
@@ -198,7 +203,7 @@ def main ():
                     pygame.mixer.music.load('glazba/' + odabraniLvl + '.ogg')
                     
                     pygame.mixer.music.play(-1, 0.0)
-                    pygame.mixer.music.set_volume(0.3)
+                    #pygame.mixer.music.set_volume(0.3)
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD, put_kraj, put_kraj_D, put_pocetak_D, put_pocetak_G)
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
@@ -226,6 +231,10 @@ def main ():
                 domet1, domet2, domet3, domet4, domet5, \
                 cijena1, cijena2, cijena3, cijena4, cijena5, \
                 cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, ikonaStart)
+            if audio:
+                UI.CrtajAudio(audioON)
+            else:
+                UI.CrtajAudio(audioOFF)
             #print ("Pocetak: ", startVrijeme)
             #print ("Start: ", startKliknut)
             dmgLista = []
@@ -276,6 +285,8 @@ def main ():
                 NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
             #Gradnja
             if kliknuto:
+                if UI.AudioKliknut(mousex, mousey):
+                    audio = not audio
                 if not startKliknut:
                     startKliknut = UI.kliknutoStart(mousex, mousey)
                 lijevo, gore = UI.poljeNaPixelu(mousex, mousey)
@@ -409,9 +420,16 @@ def main ():
                 lvlSeed.reset()
                 startVrijeme = 1
                 startKliknut = 0
+        if audio:
+            pygame.mixer.unpause()
+            pygame.mixer.music.set_volume(0.3)
+        else:
+            pygame.mixer.pause()
+            pygame.mixer.music.set_volume(0)
         pygame.display.update()
         POVRSINA.blit(pozadina, ((0, 0), (840, 480)))
         FPSCLOCK.tick(FPS)
+    pygame.quit()
 
 if __name__ == '__main__':
     main()

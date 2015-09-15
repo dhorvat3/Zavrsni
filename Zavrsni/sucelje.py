@@ -23,6 +23,7 @@ class sucelje(object):
         self.mitraljezRect = None
         self.mitraljez_uRect = None
         self.startRect = None
+        self.audioRect = None
         self.ikonaStart_H = startHover
         self.upgradeHover = upgradeHover
         self.menuHover = ikonaHover
@@ -36,6 +37,7 @@ class sucelje(object):
         self.ikonaGlavniRect = self.ikonaGlavni.get_rect()
         self.ikonaPredjen = ikonaPredjen
         self.ikonaPredjenRect = self.ikonaPredjen.get_rect()
+
     def lijevoGore(self, boxx, boxy):
         trecinax = int(self.visina/self.brojRedova)
         trecinay = int(self.sirina/self.brojStupaca)
@@ -274,11 +276,11 @@ class sucelje(object):
         return sefl.pare
     def ispisStanja(self, HP, trenutno, ukupno):
         lblHP = self.font.render(("Player HP: " + str(HP[0]) + "/" + str(HP[1])), 1, (254, 158, 154))
-        self.POVRSINA.blit(lblHP, (640 + 15, 5))
+        self.POVRSINA.blit(lblHP, (640 + 10, 5))
         lblNovci = self.font.render(("Stanje: " + str(self.pare)), 1, (254, 158, 18))
-        self.POVRSINA.blit(lblNovci, (640 + 15, 20))
+        self.POVRSINA.blit(lblNovci, (640 + 10, 20))
         lblNeprijatelji = self.font.render(("Broj: " + str(trenutno) + "/" + str(ukupno)), 1, (254, 158, 18))
-        self.POVRSINA.blit(lblNeprijatelji, (640 + 15, 35))
+        self.POVRSINA.blit(lblNeprijatelji, (640 + 10, 35))
     def postaviMrezu(self, mreza):
         self.mapa = mreza
         self.brojRedova = len(self.mapa)
@@ -309,3 +311,11 @@ class sucelje(object):
         self.ikonaGlavniRect.x = 100
         self.ikonaGlavniRect.y = 50 + 120 + 50
         self.POVRSINA.blit(self.ikonaGlavni, self.ikonaGlavniRect)
+    def CrtajAudio(self, ikona):
+        self.audioRect = ikona.get_rect()
+        self.audioRect.x = 640 + 165
+        self.audioRect.y = 10
+        self.POVRSINA.blit(ikona, self.audioRect)
+    def AudioKliknut(self, x, y):
+        if self.audioRect.collidepoint(x, y):
+            return 1
