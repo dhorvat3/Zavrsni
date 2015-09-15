@@ -388,7 +388,8 @@ def main ():
             if indekas > -1:
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
                 indekas = -1
-            UI.ispisStanja(GlZgrada.vratiHP())
+            trenutnoNeprijatelja, ukupnoNeprijatelja = lvlSeed.ukupnoNeprijatelja()
+            UI.ispisStanja(GlZgrada.vratiHP(), trenutnoNeprijatelja, ukupnoNeprijatelja)
             #uvijeti kraja igre
             if GlZgrada.vratiHP()[0] <= 0 or (len(listaNeprijatelj) < 1 and pocetak == 0):
                 pygame.mixer.music.fadeout(1000)

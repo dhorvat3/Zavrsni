@@ -8,6 +8,7 @@ class maestro(object):
         self.index = 0
         self.pocetno = pygame.time.get_ticks()
         self.razmak = 500
+        self.maxNeprijatelja = 0
     def postaviVrijeme(self):
         self.pocetno = pygame.time.get_ticks()
     def lvlLoad(self, odabraniLvl):
@@ -19,6 +20,7 @@ class maestro(object):
         self.seed = self.Lvl[15]
         for i in range(len(self.seed)):
             self.seed[i] = int(self.seed[i])
+            self.maxNeprijatelja = self.maxNeprijatelja + self.seed[i]
     def grid(self):
         grid = []
         for i in range(0, 10):
@@ -34,6 +36,11 @@ class maestro(object):
         return int(self.Lvl[13][0])
     def zgradaHP(self):
         return int(self.Lvl[14][0])
+    def ukupnoNeprijatelja(self):
+        ukupno = 0
+        for i in self.seed:
+            ukupno = ukupno + i
+        return ukupno, self.maxNeprijatelja
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
         if self.index > 2:
@@ -78,3 +85,4 @@ class maestro(object):
         self.seed = None
         self.index = 0
         self.pocetno = pygame.time.get_ticks()
+        self.maxNeprijatelja = 0

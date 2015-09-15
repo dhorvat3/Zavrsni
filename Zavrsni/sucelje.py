@@ -167,96 +167,102 @@ class sucelje(object):
         domet1, domet2, domet3, domet4, domet5, \
         cijena1, cijena2, cijena3, cijena4, cijena5, \
         cijenau1, cijenau2, cijenau3, cijenau4, cijenau5, start):
+        pocetak = 80
         #obrub
         slikaRect = slikaObrub.get_rect()
         slikaRect.x = 640
         slikaRect.y = 0
         self.POVRSINA.blit(slikaObrub, slikaRect)
         #toranj1
-        self.toranj1_uRect = toranj1_u.get_rect()
-        self.toranj1_uRect.x = 640 + 30 + 108 + 10
-        self.toranj1_uRect.y = 50
-        lblCijenaU = self.fontDMG.render(str(cijenau1), 0, (222, 0, 0))
-        self.POVRSINA.blit(lblCijenaU, (640 + 30 + 108 + 10 + 10, 50 + 31))
-        self.POVRSINA.blit(toranj1_u, self.toranj1_uRect)
         self.toranj1Rect = slikaToranj1.get_rect()
         self.toranj1Rect.x = 640 + 30
-        self.toranj1Rect.y = 50
+        self.toranj1Rect.y = pocetak
         self.POVRSINA.blit(slikaToranj1, self.toranj1Rect)
         lblDMG = self.fontDMG.render(str(dmg1), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDMG, (640 + 30 + 96, 50 + 23))
+        self.POVRSINA.blit(lblDMG, (self.toranj1Rect.x + 96, self.toranj1Rect.y + 23))
         lblDomet = self.fontDMG.render(str(domet1), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDomet, (640 + 30 + 90, 50 + 11))
+        self.POVRSINA.blit(lblDomet, (self.toranj1Rect.x + 90, self.toranj1Rect.y + 11))
         lblCijena = self.fontDMG.render(str(cijena1), 1, (0, 158, 220))
-        self.POVRSINA.blit(lblCijena, (640 + 30 + 36, 50 + 13))
+        self.POVRSINA.blit(lblCijena, (self.toranj1Rect.x + 36, self.toranj1Rect.y + 13))
+        #upgrade 1
+        self.toranj1_uRect = toranj1_u.get_rect()
+        self.toranj1_uRect.x = self.toranj1Rect.x + 108 + 10
+        self.toranj1_uRect.y = self.toranj1Rect.y
+        lblCijenaU = self.fontDMG.render(str(cijenau1), 0, (222, 0, 0))
+        self.POVRSINA.blit(lblCijenaU, (self.toranj1_uRect.x + 10, self.toranj1_uRect.y + 31))
+        self.POVRSINA.blit(toranj1_u, self.toranj1_uRect)
         #toranj2
-        self.toranj2_uRect = toranj2_u.get_rect()
-        self.toranj2_uRect.x = 640 + 30 + 108 + 10
-        self.toranj2_uRect.y = 98
-        lblCijenaU = self.fontDMG.render(str(cijenau2), 0, (222, 0, 0))
-        self.POVRSINA.blit(lblCijenaU, (640 + 30 + 108 + 10 + 10, 98 + 31))
-        self.POVRSINA.blit(toranj2_u, self.toranj2_uRect)
         self.toranj2Rect = slikaToranj2.get_rect()
         self.toranj2Rect.x = 640 + 30
-        self.toranj2Rect.y = 50 + 48
+        self.toranj2Rect.y = pocetak + 48
         self.POVRSINA.blit(slikaToranj2, self.toranj2Rect)
         lblDMG = self.fontDMG.render(str(dmg2), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDMG, (640 + 30 + 96, 98 + 23))
+        self.POVRSINA.blit(lblDMG, (self.toranj2Rect.x + 96, self.toranj2Rect.y + 23))
         lblDomet = self.fontDMG.render(str(domet2), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDomet, (640 + 30 + 90, 98 + 11))
+        self.POVRSINA.blit(lblDomet, (self.toranj2Rect.x + 90, self.toranj2Rect.y + 11))
         lblCijena = self.fontDMG.render(str(cijena2), 1, (0, 158, 220))
-        self.POVRSINA.blit(lblCijena, (640 + 30 + 36, 98 + 13))
+        self.POVRSINA.blit(lblCijena, (self.toranj2Rect.x + 36, self.toranj2Rect.y + 13))
+        #upgrade 2
+        self.toranj2_uRect = toranj2_u.get_rect()
+        self.toranj2_uRect.x = self.toranj2Rect.x + 108 + 10
+        self.toranj2_uRect.y = self.toranj2Rect.y
+        lblCijenaU = self.fontDMG.render(str(cijenau2), 0, (222, 0, 0))
+        self.POVRSINA.blit(lblCijenaU, (self.toranj2Rect.x + 108 + 10 + 10, self.toranj2Rect.y + 31))
+        self.POVRSINA.blit(toranj2_u, self.toranj2_uRect)
         #toranj3
-        self.toranj3_uRect = toranj3_u.get_rect()
-        self.toranj3_uRect.x = 640 + 30 + 108 + 10
-        self.toranj3_uRect.y = 146
-        lblCijenaU = self.fontDMG.render(str(cijenau3), 0, (222, 0, 0))
-        self.POVRSINA.blit(lblCijenaU, (640 + 30 + 108 + 10 + 10, 146 + 31))
-        self.POVRSINA.blit(toranj3_u, self.toranj3_uRect)
         self.toranj3Rect = slikaToranj3.get_rect()
         self.toranj3Rect.x = 640 + 30
-        self.toranj3Rect.y = 50 + 48 + 48
+        self.toranj3Rect.y = pocetak + 48 + 48
         self.POVRSINA.blit(slikaToranj3, self.toranj3Rect)
         lblDMG = self.fontDMG.render(str(dmg3), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDMG, (640 + 30 + 96, 146 + 23))
+        self.POVRSINA.blit(lblDMG, (self.toranj3Rect.x + 96, self.toranj3Rect.y + 23))
         lblDomet = self.fontDMG.render(str(domet3), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDomet, (640 + 30 + 90, 146 + 11))
+        self.POVRSINA.blit(lblDomet, (self.toranj3Rect.x + 90, self.toranj3Rect.y + 11))
         lblCijena = self.fontDMG.render(str(cijena3), 1, (0, 158, 220))
-        self.POVRSINA.blit(lblCijena, (640 + 30 + 36, 146 + 13))
+        self.POVRSINA.blit(lblCijena, (self.toranj3Rect.x + 36, self.toranj3Rect.y + 13))
+        #upgrade 3
+        self.toranj3_uRect = toranj3_u.get_rect()
+        self.toranj3_uRect.x = self.toranj3Rect.x + 108 + 10
+        self.toranj3_uRect.y = self.toranj3Rect.y
+        lblCijenaU = self.fontDMG.render(str(cijenau3), 0, (222, 0, 0))
+        self.POVRSINA.blit(lblCijenaU, (self.toranj3Rect.x + 108 + 10 + 10, self.toranj3Rect.y + 31))
+        self.POVRSINA.blit(toranj3_u, self.toranj3_uRect)
         #snajper
-        self.snajper_uRect = toranj4_u.get_rect()
-        self.snajper_uRect.x = 640 + 30 + 108 + 10
-        self.snajper_uRect.y = 194
-        lblCijenaU = self.fontDMG.render(str(cijenau4), 0, (222, 0, 0))
-        self.POVRSINA.blit(lblCijenaU, (640 + 30 + 108 + 10 + 10, 194 + 31))
-        self.POVRSINA.blit(toranj4_u, self.snajper_uRect)
         self.snajperRect = slikaSnajper.get_rect()
         self.snajperRect.x = 640 + 30
-        self.snajperRect.y = 50 + 48 + 48 + 48
+        self.snajperRect.y = pocetak + 48 + 48 + 48
         self.POVRSINA.blit(slikaSnajper, self.snajperRect)
         lblDMG = self.fontDMG.render(str(dmg4), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDMG, (640 + 30 + 96, 194 + 23))
+        self.POVRSINA.blit(lblDMG, (self.snajperRect.x + 96, self.snajperRect.y + 23))
         lblDomet = self.fontDMG.render(str(domet4), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDomet, (640 + 30 + 90, 194 + 11))
+        self.POVRSINA.blit(lblDomet, (self.snajperRect.x + 90, self.snajperRect.y + 11))
         lblCijena = self.fontDMG.render(str(cijena4), 1, (0, 158, 220))
-        self.POVRSINA.blit(lblCijena, (640 + 30 + 36, 194 + 13))
+        self.POVRSINA.blit(lblCijena, (self.snajperRect.x + 36, self.snajperRect.y + 13))
+        #upgrade 4
+        self.snajper_uRect = toranj4_u.get_rect()
+        self.snajper_uRect.x = self.snajperRect.x + 108 + 10
+        self.snajper_uRect.y = self.snajperRect.y
+        lblCijenaU = self.fontDMG.render(str(cijenau4), 0, (222, 0, 0))
+        self.POVRSINA.blit(lblCijenaU, (self.snajperRect.x + 108 + 10 + 10, self.snajperRect.y + 31))
+        self.POVRSINA.blit(toranj4_u, self.snajper_uRect)
         #mitraljez
-        self.mitraljez_uRect = toranj5_u.get_rect()
-        self.mitraljez_uRect.x = 640 + 30 + 108 + 10
-        self.mitraljez_uRect.y = 242
-        lblCijenaU = self.fontDMG.render(str(cijenau5), 0, (222, 0, 0))
-        self.POVRSINA.blit(lblCijenaU, (640 + 30 + 108 + 10 + 10, 242 + 31))
-        self.POVRSINA.blit(toranj5_u, self.mitraljez_uRect)
         self.mitraljezRect = slikaMitraljez.get_rect()
         self.mitraljezRect.x = 640 + 30
-        self.mitraljezRect.y = 50 + 48 + 48 + 48 + 48 
+        self.mitraljezRect.y = pocetak + 48 + 48 + 48 + 48 
         self.POVRSINA.blit(slikaMitraljez, self.mitraljezRect)
         lblDMG = self.fontDMG.render(str(dmg5), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDMG, (640 + 30 + 96, 242 + 23))
+        self.POVRSINA.blit(lblDMG, (self.mitraljezRect.x + 96, self.mitraljezRect.y + 23))
         lblDomet = self.fontDMG.render(str(domet5), 1, (220, 0, 0))
-        self.POVRSINA.blit(lblDomet, (640 + 30 + 90, 242 + 11))
+        self.POVRSINA.blit(lblDomet, (self.mitraljezRect.x + 90, self.mitraljezRect.y + 11))
         lblCijena = self.fontDMG.render(str(cijena5), 1, (0, 158, 220))
-        self.POVRSINA.blit(lblCijena, (640 + 30 + 36, 242 + 13))
+        self.POVRSINA.blit(lblCijena, (self.mitraljezRect.x + 36, self.mitraljezRect.y + 13))
+        #upgrade 5
+        self.mitraljez_uRect = toranj5_u.get_rect()
+        self.mitraljez_uRect.x = self.mitraljezRect.x + 108 + 10
+        self.mitraljez_uRect.y = self.mitraljezRect.y
+        lblCijenaU = self.fontDMG.render(str(cijenau5), 0, (222, 0, 0))
+        self.POVRSINA.blit(lblCijenaU, (self.mitraljezRect.x + 108 + 10 + 10, self.mitraljezRect.y + 31))
+        self.POVRSINA.blit(toranj5_u, self.mitraljez_uRect)
         #start ikona
         self.startRect = start.get_rect()
         self.startRect.x = 640 + 10
@@ -266,11 +272,13 @@ class sucelje(object):
         self.pare = self.pare + vrijednost
     def vratiNovce (sefl):
         return sefl.pare
-    def ispisStanja(self, HP):
+    def ispisStanja(self, HP, trenutno, ukupno):
         lblHP = self.font.render(("Player HP: " + str(HP[0]) + "/" + str(HP[1])), 1, (254, 158, 154))
-        self.POVRSINA.blit(lblHP, (640 + 30, 5))
+        self.POVRSINA.blit(lblHP, (640 + 15, 5))
         lblNovci = self.font.render(("Stanje: " + str(self.pare)), 1, (254, 158, 18))
-        self.POVRSINA.blit(lblNovci, (640 + 30, 20))
+        self.POVRSINA.blit(lblNovci, (640 + 15, 20))
+        lblNeprijatelji = self.font.render(("Broj: " + str(trenutno) + "/" + str(ukupno)), 1, (254, 158, 18))
+        self.POVRSINA.blit(lblNeprijatelji, (640 + 15, 35))
     def postaviMrezu(self, mreza):
         self.mapa = mreza
         self.brojRedova = len(self.mapa)

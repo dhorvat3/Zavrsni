@@ -79,7 +79,7 @@ class toranj(object):
         tmpIndex = self.DometTornja.collidelist(listaNeprijatelja)
         if not self.index == tmpIndex:
             self.index = tmpIndex
-        if self.index > -1 and self.vrijeme(): #and self.projektil is None:
+        if self.index > -1 and self.vrijeme():
             self.pucanj.play(0)
             neprijatelj = listaNeprijatelja[self.index]
             self.projektil.append(metak(self.Aspeed, "A", self.ikonaRect, self.DometTornja, self.POV, metakIkona, neprijatelj))
@@ -95,7 +95,6 @@ class toranj(object):
             for i in self.projektil[:]:
                 status = i.Pomak(listaNeprijatelja)
                 if status > -1:
-                    #print ("Status: ", status)
                     self.projektil.remove(i)
                     dmgLista.append([status, self.damage])
                 elif status == -2:
