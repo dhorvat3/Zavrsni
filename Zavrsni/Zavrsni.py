@@ -39,8 +39,8 @@ toranj3slika = pygame.image.load('grafika/tornjevi/toranj3.png')
 snajperslika = pygame.image.load('grafika/tornjevi/toranj4.png')
 mitraljezslika = pygame.image.load('grafika/tornjevi/toranj5.png')
 #UI
-slikaHover = pygame.image.load('grafika/hover.png')
 slikaOdabrano = pygame.image.load('grafika/odabrano.png')
+slikaGumb = pygame.image.load('grafika/gumb_toranj.png')
 menuSlika = pygame.image.load('grafika\menu_obrub.png')
 menuLvl1 = pygame.image.load('grafika/menuLvl1.png')
 menuLvl2 = pygame.image.load('grafika/menuLvl2.png')
@@ -225,7 +225,11 @@ def main ():
                 UI.hoverPobjeda(mousex, mousey)
             UI.CrtajIzgubljeno(izgubljenoSlika)
         elif mod == modIgra:
-            UI.menu(menuSlika, toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
+            UI.menuObrub(menuSlika)
+            UI.gumbTornja(slikaGumb)
+            if odabraniToranj is not None:
+                UI.odabraniGumb(odabraniToranj, slikaOdabrano)
+            UI.menu(toranj1ikona, toranj2ikona, toranj3ikona, snajperikona, mitraljezikona, \
                 toranj1_upgrade, toranj2_upgrade, toranj3_upgrade, toranj4_upgrade, toranj5_upgrade, \
                 dmg1, dmg2, dmg3, dmg4, dmg5, \
                 domet1, domet2, domet3, domet4, domet5, \
@@ -285,6 +289,7 @@ def main ():
                 NeprijateljiRect.append(listaNeprijatelj[i].ikonaRect)
             #Gradnja
             if kliknuto:
+                UI.startKliknut(mousex, mousey)
                 if UI.AudioKliknut(mousex, mousey):
                     audio = not audio
                 if not startKliknut:
@@ -338,6 +343,7 @@ def main ():
                                         i.upgradeDMG(2) 
                 #gradnja tornja
                 elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
+                    print(odabraniToranj)
                     #stvaranje tornjeva
                     if odabraniToranj is not None:
                         if odabraniToranj == toranj1:
@@ -371,17 +377,7 @@ def main ():
                                 UI.azurirajNovce(-cijena5)
                                 cijena5 = cijena5 + 20
             if not kliknuto:
-                UI.crtajObrub(mousex, mousey, slikaHover)
-                if odabraniToranj == toranj1:
-                    UI.pozadina(odabraniToranj, slikaOdabrano)
-                if odabraniToranj == toranj2:
-                    UI.pozadina(odabraniToranj, slikaOdabrano)
-                if odabraniToranj == toranj3:
-                    UI.pozadina(odabraniToranj, slikaOdabrano)
-                if odabraniToranj == snajper:
-                    UI.pozadina(odabraniToranj, slikaOdabrano)
-                if odabraniToranj == mitraljez:
-                    UI.pozadina(odabraniToranj, slikaOdabrano)
+                UI.crtajObrub(mousex, mousey)
             #Damage
             for i in range (len(tornjevi)):
                 tornjevi[i - 1].Crtaj()
