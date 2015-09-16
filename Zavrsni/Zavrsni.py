@@ -203,7 +203,6 @@ def main ():
                     pygame.mixer.music.load('glazba/' + odabraniLvl + '.ogg')
                     
                     pygame.mixer.music.play(-1, 0.0)
-                    #pygame.mixer.music.set_volume(0.3)
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD, put_kraj, put_kraj_D, put_pocetak_D, put_pocetak_G)
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
@@ -239,15 +238,12 @@ def main ():
                 UI.CrtajAudio(audioON)
             else:
                 UI.CrtajAudio(audioOFF)
-            #print ("Pocetak: ", startVrijeme)
-            #print ("Start: ", startKliknut)
             dmgLista = []
             lvl.crtajMrezu(POVRSINA, start, kraj)
             #neprijatelji
             if startKliknut:
                 if startVrijeme:
                     startVrijeme = 0
-                    #print ("Vrijeme")
                     lvlSeed.postaviVrijeme()
                 #stvaranje neprijatelja
                 elif lvlSeed.vrijeme():
@@ -343,7 +339,6 @@ def main ():
                                         i.upgradeDMG(2) 
                 #gradnja tornja
                 elif not grid[gore][lijevo] == Z and not grid[gore][lijevo] == T:
-                    print(odabraniToranj)
                     #stvaranje tornjeva
                     if odabraniToranj is not None:
                         if odabraniToranj == toranj1:

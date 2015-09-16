@@ -55,11 +55,11 @@ class sucelje(object):
     def ispisStanja(self, HP, trenutno, ukupno):
         boja = (23, 0, 247)
         lblHP = self.font.render(("Player HP: " + str(HP[0]) + "/" + str(HP[1])), 1, boja)
-        self.POVRSINA.blit(lblHP, (640 + 10, 5))
+        self.POVRSINA.blit(lblHP, (640 + 10, 10))
         lblNovci = self.font.render(("Stanje: " + str(self.pare)), 1, boja)
-        self.POVRSINA.blit(lblNovci, (640 + 10, 20))
+        self.POVRSINA.blit(lblNovci, (640 + 10, 25))
         lblNeprijatelji = self.font.render(("Broj: " + str(trenutno) + "/" + str(ukupno)), 1, boja)
-        self.POVRSINA.blit(lblNeprijatelji, (640 + 10, 35))
+        self.POVRSINA.blit(lblNeprijatelji, (640 + 10, 40))
 
     def postaviMrezu(self, mreza):
         self.mapa = mreza
@@ -325,7 +325,7 @@ class sucelje(object):
 
     def CrtajAudio(self, ikona):
         self.audioRect = ikona.get_rect()
-        self.audioRect.x = 640 + 165
+        self.audioRect.x = 640 + 160
         self.audioRect.y = 10
         self.POVRSINA.blit(ikona, self.audioRect)
 
