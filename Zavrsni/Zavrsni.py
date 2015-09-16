@@ -214,7 +214,7 @@ def main ():
                 
             UI.crtajGlavniMenu()
         elif mod == modPobjeda:
-
+            UI.gumbPobjeda(menuGumb)
             if kliknuto:
                 if UI.kliknutoPobjeda(mousex, mousey, menuStisnuto):
                     mod = modMenu
