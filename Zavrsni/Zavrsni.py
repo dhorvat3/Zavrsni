@@ -39,6 +39,7 @@ toranj3slika = pygame.image.load('grafika/tornjevi/toranj3.png')
 snajperslika = pygame.image.load('grafika/tornjevi/toranj4.png')
 mitraljezslika = pygame.image.load('grafika/tornjevi/toranj5.png')
 #UI
+kursor = pygame.image.load('grafika/cursorHand_grey.png')
 slikaOdabrano = pygame.image.load('grafika/odabrano.png')
 slikaGumb = pygame.image.load('grafika/gumb_toranj.png')
 menuSlika = pygame.image.load('grafika\menu_obrub.png')
@@ -129,6 +130,7 @@ def main ():
     mousex = 0
     mousey = 0
     pygame.display.set_caption('Zavrsni')
+    pygame.mouse.set_visible(False)
     odabraniToranj = None
     odabraniUpgrade = None
     odabraniLvl = None
@@ -417,6 +419,7 @@ def main ():
         else:
             pygame.mixer.pause()
             pygame.mixer.music.set_volume(0)
+        POVRSINA.blit(kursor, pygame.mouse.get_pos())
         pygame.display.update()
         POVRSINA.blit(pozadina, ((0, 0), (840, 480)))
         FPSCLOCK.tick(FPS)
