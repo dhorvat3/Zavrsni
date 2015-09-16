@@ -9,8 +9,11 @@ class maestro(object):
         self.pocetno = pygame.time.get_ticks()
         self.razmak = 500
         self.maxNeprijatelja = 0
+        self.trenutnoNeprijatelja = 0
+
     def postaviVrijeme(self):
         self.pocetno = pygame.time.get_ticks()
+
     def lvlLoad(self, odabraniLvl):
         f = open('lvl/' + str(odabraniLvl) + '.txt')
         redovi = f.readlines()
@@ -21,26 +24,35 @@ class maestro(object):
         for i in range(len(self.seed)):
             self.seed[i] = int(self.seed[i])
             self.maxNeprijatelja = self.maxNeprijatelja + self.seed[i]
+        self.trenutnoNeprijatelja = self.maxNeprijatelja
+
     def grid(self):
         grid = []
         for i in range(0, 10):
             grid.append(self.Lvl[i])
         return grid
+
     def start(self):
         return int(self.Lvl[10][0]), int(self.Lvl[10][1])
+
     def kraj(self):
         return int(self.Lvl[11][0]), int(self.Lvl[11][1])
+
     def brNeprijatelja(self):
         return int(self.Lvl[12][0])
+
     def startGold(self):
         return int(self.Lvl[13][0])
+
     def zgradaHP(self):
         return int(self.Lvl[14][0])
+
     def ukupnoNeprijatelja(self):
-        ukupno = 0
-        for i in self.seed:
-            ukupno = ukupno + i
-        return ukupno, self.maxNeprijatelja
+        return self.trenutnoNeprijatelja, self.maxNeprijatelja
+
+    def smanjiBrojNep(self):
+        self.trenutnoNeprijatelja = self.trenutnoNeprijatelja - 1
+
     def vrijeme(self):
         trenutno = pygame.time.get_ticks()
         if self.index > 2:
@@ -55,6 +67,7 @@ class maestro(object):
                 return 1
             else:
                 return 0
+
     def vratiNeprijatelj(self):
         if self.index > self.brNeprijatelja() - 1:
             return None, None, None
@@ -80,9 +93,11 @@ class maestro(object):
             return 7, 2, 520
         elif self.index == 7:
             return 8, 1, 580
+
     def reset(self):
         self.Lvl = []
         self.seed = None
         self.index = 0
         self.pocetno = pygame.time.get_ticks()
         self.maxNeprijatelja = 0
+        self.trenutnoNeprijatelja = 0

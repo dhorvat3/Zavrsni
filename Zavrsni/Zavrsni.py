@@ -392,6 +392,7 @@ def main ():
                                 smrtZvuk.play(0)
                                 UI.azurirajNovce(5)
                                 listaNeprijatelj.remove(listaNeprijatelj[i[0]])
+                                lvlSeed.smanjiBrojNep()
             indekas = GlZgrada.damage(NeprijateljiRect)
             if indekas > -1:
                 listaNeprijatelj.remove(listaNeprijatelj[indekas])
