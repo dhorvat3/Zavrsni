@@ -46,7 +46,8 @@ menuSlika = pygame.image.load('grafika\menu_obrub.png')
 menuLvl1 = pygame.image.load('grafika/menuLvl1.png')
 menuLvl2 = pygame.image.load('grafika/menuLvl2.png')
 menuLvl3 = pygame.image.load('grafika/menuLvl3.png')
-menuHover = pygame.image.load('grafika/menuHover.png')
+menuGumb = pygame.image.load('grafika/menuGumb.png')
+menuStisnuto = pygame.image.load('grafika/menuStisnuto.png')
 predjenLabel = pygame.image.load('grafika/predjenLvl.png')
 glavniMenu = pygame.image.load('grafika/menuGlavni.png')
 toranj1_upgrade = pygame.image.load('grafika/tornjevi/toranj1_upgrade.png')
@@ -126,7 +127,7 @@ def main ():
     pygame.mixer.music.play(-1, 0.0)
 
     lvlSeed = maestro()
-    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuHover, menuLvl1, menuLvl2, menuLvl3, glavniMenu, predjenLabel, toranj_upgrade_hover, ikonaStart_H)
+    UI = sucelje(VisinaProzora, SirinaProzora, POVRSINA, menuLvl1, menuLvl2, menuLvl3, glavniMenu, predjenLabel, toranj_upgrade_hover, ikonaStart_H)
     mousex = 0
     mousey = 0
     pygame.display.set_caption('Zavrsni')
@@ -143,7 +144,6 @@ def main ():
         kliknuto = False
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
-                #pygame.quit()
                 izvrsavaj = False
             if event.type == MOUSEMOTION:
                 mousex, mousey = event.pos
@@ -152,6 +152,7 @@ def main ():
                 kliknuto = True
         if mod == modMenu:
             POVRSINA.blit(naslov, ((0, 0), (840, 480)))
+            UI.gumbGlavniMenu(menuGumb)
             #varijable tornjeva
             #Tetejac
             dmg1 = 10
@@ -189,6 +190,7 @@ def main ():
             cijena5 = 100
             cijenau5 = 50
             if kliknuto:
+                UI.klikGlavniMenu(mousex, mousey, menuStisnuto)
                 odabraniLvl = UI.kliknutoGlavniMenu(mousex, mousey)
                 if odabraniLvl is not None:
                     mod = modIgra
@@ -208,22 +210,24 @@ def main ():
                     lvl = Mapa(grid, VisinaProzora, SirinaProzora, okolis, put_ravno, put_dole, put_kutLD, put_kutDD, put_kraj, put_kraj_D, put_pocetak_D, put_pocetak_G)
                     tornjevi = []
                     GlZgrada = zgrada(POVRSINA, glavnaZgrada, zgradaHP, kraj, VisinaProzora, SirinaProzora, grid)
-            if not kliknuto:
-                UI.hoverGlavniMenu(mousex, mousey)
+            #if not kliknuto:
+                
             UI.crtajGlavniMenu()
         elif mod == modPobjeda:
+
             if kliknuto:
-                if UI.kliknutoPobjeda(mousex, mousey):
+                if UI.kliknutoPobjeda(mousex, mousey, menuStisnuto):
                     mod = modMenu
-            if not kliknuto:
-                UI.hoverPobjeda(mousex, mousey)
+            #if not kliknuto:
+            #    UI.hoverPobjeda(mousex, mousey)
             UI.CrtajPobjedu()
         elif mod == modIzgubljeno:
+            UI.gumbPobjeda(menuGumb)
             if kliknuto:
-                if UI.kliknutoPobjeda(mousex, mousey):
+                if UI.kliknutoPobjeda(mousex, mousey, menuStisnuto):
                     mod = modMenu
-            if not kliknuto:
-                UI.hoverPobjeda(mousex, mousey)
+            #if not kliknuto:
+            #    UI.hoverPobjeda(mousex, mousey)
             UI.CrtajIzgubljeno(izgubljenoSlika)
         elif mod == modIgra:
             UI.menuObrub(menuSlika)

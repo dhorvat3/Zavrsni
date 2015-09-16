@@ -2,7 +2,7 @@
 
 class sucelje(object):
     """Definiranje korisniskog su?elja"""
-    def __init__(self, visina, sirina, POV, ikonaHover, ikonaLvl1, ikonaLvl2, ikonaLvl3, ikonaGlavni, ikonaPredjen, upgradeHover, startHover):
+    def __init__(self, visina, sirina, POV, ikonaLvl1, ikonaLvl2, ikonaLvl3, ikonaGlavni, ikonaPredjen, upgradeHover, startHover):
         self.visina = visina
         self.sirina = sirina
         self.brojRedova = 0
@@ -26,7 +26,6 @@ class sucelje(object):
         self.audioRect = None
         self.ikonaStart_H = startHover
         self.upgradeHover = upgradeHover
-        self.menuHover = ikonaHover
         self.menuLvl1 = ikonaLvl1
         self.Lvl1Rect = self.menuLvl1.get_rect()
         self.menuLvl2 = ikonaLvl2
@@ -84,17 +83,11 @@ class sucelje(object):
             lijevo, gore = self.lijevoGore(poljex, poljey)
             pygame.draw.rect(self.POVRSINA, (60,  60, 100), (lijevo, gore, self.visina/self.brojRedova, self.sirina/self.brojStupaca), 3)
         elif x is not None and y is not None \
-            and self.toranj1Rect is not None \
-            and self.toranj2Rect is not None \
-            and self.toranj3Rect is not None \
             and self.toranj1_uRect is not None \
             and self.toranj2_uRect is not None \
             and self.toranj3_uRect is not None \
-            and self.snajperRect is not None \
             and self.snajper_uRect is not None \
-            and self.mitraljezRect is not None \
-            and self.mitraljez_uRect is not None \
-            and self.startRect is not None:
+            and self.mitraljez_uRect is not None:
            if self.toranj1_uRect.collidepoint(x, y):
                self.POVRSINA.blit (self.upgradeHover, self.toranj1_uRect)
            elif self.toranj2_uRect.collidepoint(x, y):
@@ -158,13 +151,18 @@ class sucelje(object):
         self.POVRSINA.blit(self.menuLvl2, self.Lvl2Rect)
         self.POVRSINA.blit(self.menuLvl3, self.Lvl3Rect)
 
-    def hoverGlavniMenu(self, x, y):
+    def gumbGlavniMenu(self, gumb):
+        self.POVRSINA.blit(gumb, self.Lvl1Rect)
+        self.POVRSINA.blit(gumb, self.Lvl2Rect)
+        self.POVRSINA.blit(gumb, self.Lvl3Rect)
+
+    def klikGlavniMenu(self, x, y, gumb):
         if self.Lvl1Rect.collidepoint(x, y):
-            self.POVRSINA.blit(self.menuHover, self.Lvl1Rect)
+            self.POVRSINA.blit(gumb, self.Lvl1Rect)
         elif self.Lvl2Rect.collidepoint(x, y):
-            self.POVRSINA.blit(self.menuHover, self.Lvl2Rect)
+            self.POVRSINA.blit(gumb, self.Lvl2Rect)
         elif self.Lvl3Rect.collidepoint(x, y):
-            self.POVRSINA.blit(self.menuHover, self.Lvl3Rect)
+            self.POVRSINA.blit(gumb, self.Lvl3Rect)
 
     def kliknutoGlavniMenu(self, x, y):
         if self.Lvl1Rect.collidepoint(x, y):
@@ -296,13 +294,17 @@ class sucelje(object):
 
     def CrtajPobjedu(self):
         self.ikonaPredjenRect.x = 100
-        self.ikonaPredjenRect.y = 50
+        self.ikonaPredjenRect.y = 10
         self.POVRSINA.blit(self.ikonaPredjen, self.ikonaPredjenRect)
         self.ikonaGlavniRect.x = 100
         self.ikonaGlavniRect.y = 50 + 120 + 50
         self.POVRSINA.blit(self.ikonaGlavni, self.ikonaGlavniRect)
 
-    def kliknutoPobjeda(self, x, y):
+    def gumbPobjeda(self, gumb):
+        self.POVRSINA.blit(gumb, self.ikonaGlavniRect)
+
+    def kliknutoPobjeda(self, x, y, gumb):
+        self.POVRSINA.blit(gumb, self.ikonaGlavniRect)
         if self.ikonaGlavniRect.collidepoint(x, y):
             return 1
 
@@ -310,14 +312,10 @@ class sucelje(object):
         if self.startRect.collidepoint(x, y):
             return 1
 
-    def hoverPobjeda(self, x, y):
-        if self.ikonaGlavniRect.collidepoint(x, y):
-            self.POVRSINA.blit(self.menuHover, self.ikonaGlavniRect)
-
     def CrtajIzgubljeno(self, ikona):
         ikonaRect = ikona.get_rect()
         ikonaRect.x = 100
-        ikonaRect.y = 50
+        ikonaRect.y = 10
         self.POVRSINA.blit(ikona, ikonaRect)
         self.ikonaGlavniRect.x = 100
         self.ikonaGlavniRect.y = 50 + 120 + 50
