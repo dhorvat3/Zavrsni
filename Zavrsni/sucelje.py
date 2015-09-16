@@ -275,7 +275,7 @@ class sucelje(object):
         self.mitraljez_uRect = toranj5_u.get_rect()
         self.mitraljez_uRect.x = self.mitraljezRect.x + 108 + 10
         self.mitraljez_uRect.y = self.mitraljezRect.y
-        lblCijenaU = self.fontDMG.render(str(cijenau5), 0, (222, 0, 0))
+        lblCijenaU = self.fontDMG.render(str(cijenau5), 1, (222, 0, 0))
         self.POVRSINA.blit(lblCijenaU, (self.mitraljezRect.x + 108 + 10 + 10, self.mitraljezRect.y + 31))
         self.POVRSINA.blit(toranj5_u, self.mitraljez_uRect)
         #start ikona
@@ -320,6 +320,10 @@ class sucelje(object):
         self.ikonaGlavniRect.x = 100
         self.ikonaGlavniRect.y = 50 + 120 + 50
         self.POVRSINA.blit(self.ikonaGlavni, self.ikonaGlavniRect)
+
+    def crtajPreostalo(self, trenutno, ukupno):
+        lblBroj = self.font.render(('Preostalo neprijatelja: ' + str(trenutno) + '/' + str(ukupno)), 1, (255, 0, 0))
+        self.POVRSINA.blit(lblBroj, (150, 150))
 
     def CrtajAudio(self, ikona):
         self.audioRect = ikona.get_rect()

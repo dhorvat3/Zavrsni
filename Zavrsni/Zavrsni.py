@@ -222,6 +222,7 @@ def main ():
             #    UI.hoverPobjeda(mousex, mousey)
             UI.CrtajPobjedu()
         elif mod == modIzgubljeno:
+            UI.crtajPreostalo(trenutnoNeprijatelja, ukupnoNeprijatelja)
             UI.gumbPobjeda(menuGumb)
             if kliknuto:
                 if UI.kliknutoPobjeda(mousex, mousey, menuStisnuto):
