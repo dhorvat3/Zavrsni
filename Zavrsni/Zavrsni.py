@@ -433,3 +433,25 @@ def main ():
 
 if __name__ == '__main__':
     main()
+
+class StateManager(object):
+    def __init__(self, ekran):
+        self.change(IntroState(ekran))
+
+    def change(self, stanje):
+        self.stanje = stanje
+        self.stanje.manager = self
+        print("Stanje promijenjeno: " + self.get_name())
+        print('('+self.get_descr()+')\n')
+
+    def update(self):
+        self.stanje.update()
+    
+    def render(self, ekran):
+        self.stanje.render(ekran)
+
+    def get_name(self):
+        return self.stanje.ime
+
+    def get_descr(self):
+        return self.stanje.opis
